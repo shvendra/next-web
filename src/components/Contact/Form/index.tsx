@@ -13,7 +13,7 @@ type FormDataType = {
 
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, "") ||
-  "http://localhost:5000";
+  "https://www.bookmyworkers.com";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState<FormDataType>({
