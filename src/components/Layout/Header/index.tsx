@@ -109,7 +109,7 @@ const Header: React.FC = () => {
               </svg>
             </button>
             <Link
-              href="https://www.bookmyworkers.com/login"
+              href="https://www.bookmyworkers.com/app/login"
                             target="_blank"
 
               className="hidden lg:block bg-error text-sm hover:bg-error/90 text-white px-4 py-3.5 leading-none rounded-lg font-medium text-nowrap"
@@ -134,7 +134,7 @@ const Header: React.FC = () => {
               </div>
             )}
             <Link
-              href="https://www.bookmyworkers.com/register"
+              href="https://www.bookmyworkers.com/app/register"
               target="_blank"
               className="hidden lg:block text-sm bg-dark hover:bg-dark/90 text-white px-4 py-3.5 leading-none rounded-lg font-medium text-nowrap"
               // onClick={() => {

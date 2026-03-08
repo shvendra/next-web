@@ -75,7 +75,7 @@ const Hero = () => {
           <div className="flex justify-center">
             <button
               onClick={() =>
-                window.open("https://www.bookmyworkers.com/register", "_blank")
+                window.open("https://www.bookmyworkers.com/app/register", "_blank")
               }
               className="text-white bg-linear-to-r text-sm from-error to-warning px-7 py-4 border font-semibold rounded-md"
             >

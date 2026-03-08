@@ -135,7 +135,7 @@ const PricingPlan: React.FC = () => {
               </div>
 
              <Link
-  href="https://www.bookmyworkers.com/register"
+  href="https://www.bookmyworkers.com/app/register"
   target="_blank"
   rel="noopener noreferrer"
   className={`block w-full rounded-lg px-6 py-4 text-center text-sm font-semibold transition-all duration-300 ${

@@ -83,7 +83,7 @@ const WorkerCategories = () => {
                     {/* Button */}
                  <div className="mt-6">
   <Link
-    href="https://www.bookmyworkers.com/register"
+    href="https://www.bookmyworkers.com/app/register"
     target="_blank"
     rel="noopener noreferrer"
   >

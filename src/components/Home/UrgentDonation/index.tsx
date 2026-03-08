@@ -23,7 +23,7 @@ const UrgentWorker = () => {
           </p>
 <div className="flex justify-center">
   <a
-    href="https://www.bookmyworkers.com/register"
+    href="https://www.bookmyworkers.com/app/register"
     target="_blank"
     rel="noopener noreferrer"
     className="bg-linear-to-r from-primary to-secondary px-7 border text-sm font-semibold text-white border-transparent py-4 rounded-sm hover:from-transparent hover:to-transparent hover:border-primary hover:text-primary transition-all duration-300"

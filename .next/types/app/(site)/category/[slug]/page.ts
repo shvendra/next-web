@@ -1,4 +1,4 @@
-// File: /Users/sonu/Desktop/ ̑/frontend/web/src/app/(site)/category/[slug]/page.tsx
+// File: /Users/sonu/Desktop/BookMyWorker/next-web/src/app/(site)/category/[slug]/page.tsx
 import * as entry from '../../../../../../src/app/(site)/category/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
