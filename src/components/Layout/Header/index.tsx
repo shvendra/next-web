@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {  useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { headerData } from "../Header/Navigation/menuData";
 import Logo from "./Logo";
-import Image from 'next/image';
+import Image from "next/image";
 import HeaderLink from "../Header/Navigation/HeaderLink";
 import MobileHeaderLink from "../Header/Navigation/MobileHeaderLink";
 import Signin from "@/components/Auth/SignIn";
@@ -37,13 +37,23 @@ const Header: React.FC = () => {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (signInRef.current && !signInRef.current.contains(event.target as Node)) {
+    if (
+      signInRef.current &&
+      !signInRef.current.contains(event.target as Node)
+    ) {
       setIsSignInOpen(false);
     }
-    if (signUpRef.current && !signUpRef.current.contains(event.target as Node)) {
+    if (
+      signUpRef.current &&
+      !signUpRef.current.contains(event.target as Node)
+    ) {
       setIsSignUpOpen(false);
     }
-    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node) && navbarOpen) {
+    if (
+      mobileMenuRef.current &&
+      !mobileMenuRef.current.contains(event.target as Node) &&
+      navbarOpen
+    ) {
       setNavbarOpen(false);
     }
   };
@@ -65,15 +75,12 @@ const Header: React.FC = () => {
     }
   }, [isSignInOpen, isSignUpOpen, navbarOpen]);
 
- const info = useContext(DonationFormContext);
+  const info = useContext(DonationFormContext);
 
-  useEffect(() => {
-  },[])
+  useEffect(() => {}, []);
 
   const donationInfo = useContext(DonationFormContext);
   const authDialog = useContext(AuthDialogContext);
-
-
 
   return (
     <header
@@ -99,7 +106,10 @@ const Header: React.FC = () => {
                 viewBox="0 0 16 16"
                 className={`hidden h-6 w-6 dark:block ${!sticky && pathUrl === "/" && "text-white"}`}
               >
-                <path d="M4.50663 3.2267L3.30663 2.03337L2.36663 2.97337L3.55996 4.1667L4.50663 3.2267ZM2.66663 7.00003H0.666626V8.33337H2.66663V7.00003ZM8.66663 0.366699H7.33329V2.33337H8.66663V0.366699V0.366699ZM13.6333 2.97337L12.6933 2.03337L11.5 3.2267L12.44 4.1667L13.6333 2.97337ZM11.4933 12.1067L12.6866 13.3067L13.6266 12.3667L12.4266 11.1734L11.4933 12.1067ZM13.3333 7.00003V8.33337H15.3333V7.00003H13.3333ZM7.99996 3.6667C5.79329 3.6667 3.99996 5.46003 3.99996 7.6667C3.99996 9.87337 5.79329 11.6667 7.99996 11.6667C10.2066 11.6667 12 9.87337 12 7.6667C12 5.46003 10.2066 3.6667 7.99996 3.6667ZM7.33329 14.9667H8.66663V13H7.33329V14.9667ZM2.36663 12.36L3.30663 13.3L4.49996 12.1L3.55996 11.16L2.36663 12.36Z" fill="#FFFFFF" />
+                <path
+                  d="M4.50663 3.2267L3.30663 2.03337L2.36663 2.97337L3.55996 4.1667L4.50663 3.2267ZM2.66663 7.00003H0.666626V8.33337H2.66663V7.00003ZM8.66663 0.366699H7.33329V2.33337H8.66663V0.366699V0.366699ZM13.6333 2.97337L12.6933 2.03337L11.5 3.2267L12.44 4.1667L13.6333 2.97337ZM11.4933 12.1067L12.6866 13.3067L13.6266 12.3667L12.4266 11.1734L11.4933 12.1067ZM13.3333 7.00003V8.33337H15.3333V7.00003H13.3333ZM7.99996 3.6667C5.79329 3.6667 3.99996 5.46003 3.99996 7.6667C3.99996 9.87337 5.79329 11.6667 7.99996 11.6667C10.2066 11.6667 12 9.87337 12 7.6667C12 5.46003 10.2066 3.6667 7.99996 3.6667ZM7.33329 14.9667H8.66663V13H7.33329V14.9667ZM2.36663 12.36L3.30663 13.3L4.49996 12.1L3.55996 11.16L2.36663 12.36Z"
+                  fill="#FFFFFF"
+                />
               </svg>
               <svg
                 viewBox="0 0 23 23"
@@ -110,8 +120,7 @@ const Header: React.FC = () => {
             </button>
             <Link
               href="https://www.bookmyworkers.com/app/login"
-                            target="_blank"
-
+              target="_blank"
               className="hidden lg:block bg-error text-sm hover:bg-error/90 text-white px-4 py-3.5 leading-none rounded-lg font-medium text-nowrap"
               // onClick={() => {
               //   setIsSignInOpen(true);
@@ -120,16 +129,24 @@ const Header: React.FC = () => {
               Sign In
             </Link>
             {isSignInOpen && (
-              <div ref={signInRef} className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50 m-0!">
+              <div
+                ref={signInRef}
+                className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50 m-0!"
+              >
                 <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-dark">
-                <button
-                  onClick={() => setIsSignInOpen(false)}
-                  className=" hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8"
-                  aria-label="Close Sign In Modal"
-                >
-                  <Icon icon="ic:round-close" className="text-2xl dark:text-white" />
-                </button>
-                  <Signin signInOpen = {(value:boolean) => setIsSignInOpen(value)} />
+                  <button
+                    onClick={() => setIsSignInOpen(false)}
+                    className=" hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8"
+                    aria-label="Close Sign In Modal"
+                  >
+                    <Icon
+                      icon="ic:round-close"
+                      className="text-2xl dark:text-white"
+                    />
+                  </button>
+                  <Signin
+                    signInOpen={(value: boolean) => setIsSignInOpen(value)}
+                  />
                 </div>
               </div>
             )}
@@ -144,16 +161,24 @@ const Header: React.FC = () => {
               Sign Up
             </Link>
             {isSignUpOpen && (
-              <div ref={signUpRef} className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50 m-0!">
+              <div
+                ref={signUpRef}
+                className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50 m-0!"
+              >
                 <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-dark">
-                <button
-                  onClick={() => setIsSignUpOpen(false)}
-                  className=" hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8"
-                  aria-label="Close Sign In Modal"
-                >
-                  <Icon icon="ic:round-close" className="text-2xl dark:text-white" />
-                </button>
-                  <SignUp signUpOpen = {(value:boolean) => setIsSignUpOpen(value)} />
+                  <button
+                    onClick={() => setIsSignUpOpen(false)}
+                    className=" hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8"
+                    aria-label="Close Sign In Modal"
+                  >
+                    <Icon
+                      icon="ic:round-close"
+                      className="text-2xl dark:text-white"
+                    />
+                  </button>
+                  <SignUp
+                    signUpOpen={(value: boolean) => setIsSignUpOpen(value)}
+                  />
                 </div>
               </div>
             )}
@@ -176,9 +201,20 @@ const Header: React.FC = () => {
           className={`lg:hidden fixed top-0 right-0 h-full w-full bg-white dark:bg-dark shadow-lg transform transition-transform duration-300 max-w-xs ${navbarOpen ? "translate-x-0" : "translate-x-full"} z-50`}
         >
           <div className="flex items-center justify-between p-4">
-            <h2 className="text-lg font-bold text-midnight_text dark:text-white">Menu</h2>
-            <button onClick={() => setNavbarOpen(false)} aria-label="Close mobile menu">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className="dark:text-white">
+            <h2 className="text-lg font-bold text-midnight_text dark:text-white">
+              Menu
+            </h2>
+            <button
+              onClick={() => setNavbarOpen(false)}
+              aria-label="Close mobile menu"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                className="dark:text-white"
+              >
                 <path
                   fill="none"
                   stroke="currentColor"
@@ -196,22 +232,16 @@ const Header: React.FC = () => {
             ))}
             <div className="mt-4 flex flex-col space-y-4 w-full">
               <Link
-                href="#"
+                href="https://www.bookmyworkers.com/app/login"
+                target="_blank"
                 className="bg-transparent border border-primary text-primary px-4 py-2 text-nowrap rounded-lg hover:bg-darkprimary hover:text-white"
-                onClick={() => {
-                  setIsSignInOpen(true);
-                  setNavbarOpen(false);
-                }}
               >
                 Sign In
               </Link>
               <Link
-                href="#"
+                href="https://www.bookmyworkers.com/app/register"
+                target="_blank"
                 className="bg-primary text-white px-4 py-2 rounded-lg text-nowrap hover:bg-darkprimary"
-                onClick={() => {
-                  setIsSignUpOpen(true);
-                  setNavbarOpen(false);
-                }}
               >
                 Sign Up
               </Link>
@@ -220,79 +250,94 @@ const Header: React.FC = () => {
         </div>
       </div>
       <div className="dark:bg-dark">
-      <div className="px-4 container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) sm:flex lg:justify-between justify-center py-5 hidden">
-        <div className="lg:block hidden">
-          <Logo />
-        </div>
-        <div className="flex items-center">
-          <div className="flex gap-3 py-2 pr-6 border-r dark:border-dark_border">
-            <Image
-              src="/images/icons/icon-mail.svg"
-              alt="icon"
-              width={32}
-              height={32}
-            />
-            <div className="">
-              <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
-                Email us at
-              </p>
-              <Link href="#" className="text-base font-semibold mb-0 hover:text-primary">
-                business@bookmyworkers.com
-              </Link>
-            </div>
+        <div className="px-4 container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) sm:flex lg:justify-between justify-center py-5 hidden">
+          <div className="lg:block hidden">
+            <Logo />
           </div>
-          <div className="flex gap-3 py-2 pl-6">
-            <Image
-              src="/images/icons/icon-phone.svg"
-              alt="icon"
-              width={32}
-              height={32}
-            />
-            <div className="">
-              <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
-                Call us now
-              </p>
-              <Link href="#" className="text-base font-semibold mb-0 hover:text-primary">
-                +91 7389791873
-              </Link>
+          <div className="flex items-center">
+            <div className="flex gap-3 py-2 pr-6 border-r dark:border-dark_border">
+              <Image
+                src="/images/icons/icon-mail.svg"
+                alt="icon"
+                width={32}
+                height={32}
+              />
+              <div className="">
+                <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
+                  Email us at
+                </p>
+                <Link
+                  href="#"
+                  className="text-base font-semibold mb-0 hover:text-primary"
+                >
+                  business@bookmyworkers.com
+                </Link>
+              </div>
             </div>
+            <div className="flex gap-3 py-2 pl-6">
+              <Image
+                src="/images/icons/icon-phone.svg"
+                alt="icon"
+                width={32}
+                height={32}
+              />
+              <div className="">
+                <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
+                  Call us now
+                </p>
+                <Link
+                  href="#"
+                  className="text-base font-semibold mb-0 hover:text-primary"
+                >
+                  +91 7389791873
+                </Link>
+              </div>
+            </div>
+            <button
+              onClick={() => info?.setIsDonationOpen(true)}
+              className="text-error text-sm font-semibold border border-error py-4 px-7 rounded-md ml-8 hover:bg-error hover:text-white"
+            >
+              Make an Enquiry
+            </button>
           </div>
-        <button
-  onClick={() => info?.setIsDonationOpen(true)}
-  className="text-error text-sm font-semibold border border-error py-4 px-7 rounded-md ml-8 hover:bg-error hover:text-white"
->
-  Make an Enquiry
-</button>
         </div>
-      </div>
       </div>
       {/* Donation Popup */}
       {donationInfo?.isDonationOpen && (
-              <div  className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50 m-0!">
-                <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-dark">
-                <button
-                  onClick={() => donationInfo?.setIsDonationOpen(false)}
-                  className=" hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8"
-                  aria-label="Close Sign In Modal"
-                >
-                  <Icon icon="ic:round-close" className="text-2xl dark:text-white" />
-                </button>
-                  <Donation />
-                </div>
-              </div>
-            )}
+        <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50 m-0!">
+          <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white px-8 py-14 text-center dark:bg-dark">
+            <button
+              onClick={() => donationInfo?.setIsDonationOpen(false)}
+              className=" hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded-full absolute -top-5 -right-3 mr-8 mt-8"
+              aria-label="Close Sign In Modal"
+            >
+              <Icon
+                icon="ic:round-close"
+                className="text-2xl dark:text-white"
+              />
+            </button>
+            <Donation />
+          </div>
+        </div>
+      )}
       {/* Successsful Login Alert */}
-       <div className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${authDialog?.isSuccessDialogOpen == true ? "block" : "hidden"}`}>
-       <SuccessfullLogin/>
-       </div>
+      <div
+        className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${authDialog?.isSuccessDialogOpen == true ? "block" : "hidden"}`}
+      >
+        <SuccessfullLogin />
+      </div>
       {/* Failed Login Alert */}
-       <div className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${authDialog?.isFailedDialogOpen == true ? "block" : "hidden"}`}>
-       <FailedLogin/>
-       </div>
+      <div
+        className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${authDialog?.isFailedDialogOpen == true ? "block" : "hidden"}`}
+      >
+        <FailedLogin />
+      </div>
       {/* User registration Alert */}
-       <div className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${authDialog?.isUserRegistered == true ? "block" : "hidden"}`}>
-       <UserRegistered/>
-       </div>
+      <div
+        className={`fixed top-6 end-1/2 translate-x-1/2 z-50 ${authDialog?.isUserRegistered == true ? "block" : "hidden"}`}
+      >
+        <UserRegistered />
+      </div>
     </header>
   );
 };
