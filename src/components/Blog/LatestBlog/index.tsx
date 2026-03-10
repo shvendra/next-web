@@ -8,7 +8,8 @@ export default async function LatestBlog() {
   let blogs: BlogItem[] = [];
 
   try {
-    blogs = await getAllBlogs();
+    const response = await getAllBlogs();
+    blogs = response.blogs;
   } catch (error) {
     blogs = [];
   }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogBySlug, getBlogImageUrl } from "../../../../lib/blog";
 import BlogPage from "../detail/page";
+import BlogLikeButton from "@/components/SharedComponent/Blog/BlogLikeButton";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -183,15 +184,20 @@ export default async function SingleBlogPage({ params }: Props) {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-black/10 pt-6 dark:border-white/10">
-            <button className="inline-flex items-center gap-2 rounded-md border border-black/10 px-5 py-2.5 text-sm font-semibold text-midnight_text transition hover:bg-black hover:text-white dark:border-white/10 dark:text-white dark:hover:bg-white dark:hover:text-black">
-              <span>👍</span>
-              <span>Like</span>
-            </button>
+            <BlogLikeButton
+  blogId={blog._id}
+  initialLikes={blog.likes || 0}
+/>
 
-            <button className="inline-flex items-center gap-2 rounded-md bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-600">
-              <span>↗</span>
-              <span>Share</span>
-            </button>
+           {/* <a
+  href={`https://wa.me/?text=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "")}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-2 rounded-md bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-cyan-600"
+>
+  <span>↗</span>
+  <span>Share</span>
+</a> */}
           </div>
         </div>
       </section>

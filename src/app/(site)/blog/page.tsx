@@ -1,31 +1,26 @@
 import React from "react";
-import HeroSub from "@/components/SharedComponent/HeroSub";
+import Link from "next/link";
 import BlogCard from "@/components/SharedComponent/Blog/blogCard";
-import { getAllBlogs, type BlogItem } from "@/lib/blog";
+import { getAllBlogs, type BlogItem, type BlogPagination } from "@/lib/blog";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blogs | BookMyWorker Workforce Insights",
-
   description:
-    "Read the latest BookMyWorker blogs, workforce hiring tips, labour market updates, employer guidance, and insights on skilled, semi-skilled, and unskilled workers across India.",
-
+    "Read the latest blogs, hiring tips, labour market updates, and workforce insights from BookMyWorker across India.",
   keywords: [
     "BookMyWorker blog",
-    "workforce hiring blog",
+    "workforce blog India",
     "hire workers India",
     "labour hiring tips",
     "skilled workers India",
     "unskilled workers India",
-    "contractor hiring guide",
-    "employer workforce insights",
+    "employer hiring guide",
     "BookMyWorker news",
   ],
-
   alternates: {
     canonical: "https://www.bookmyworkers.com/blog",
   },
-
   openGraph: {
     title: "Blogs | BookMyWorker Workforce Insights",
     description:
@@ -43,54 +38,67 @@ export const metadata: Metadata = {
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "BookMyWorker Blogs",
     description:
-      "Read BookMyWorker blogs on hiring workers, workforce trends, and business insights.",
+      "Read BookMyWorker blogs on hiring workers, labour trends, and workforce insights.",
     images: ["https://www.bookmyworkers.com/images/seo/og-image.jpg"],
   },
-
   robots: {
     index: true,
     follow: true,
   },
 };
 
-const BlogPage = async () => {
+type BlogPageProps = {
+  searchParams?: Promise<{
+    page?: string;
+  }>;
+};
+
+const BLOGS_PER_PAGE = 6;
+
+const BlogPage = async ({ searchParams }: BlogPageProps) => {
+  const params = await searchParams;
+  const currentPage = Math.max(Number(params?.page || 1), 1);
+
   let blogs: BlogItem[] = [];
+  let pagination: BlogPagination | undefined;
 
   try {
-    blogs = await getAllBlogs();
+    const response = await getAllBlogs(currentPage, BLOGS_PER_PAGE);
+    blogs = response.blogs;
+    pagination = response.pagination;
   } catch (error) {
     blogs = [];
+    pagination = undefined;
   }
 
-  return (
-    <>
-      <HeroSub title="BookMyWorker Blog & News" />
+  const totalPages = pagination?.totalPages || 1;
 
-      <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
-        <div className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-4">
-          <div className="mx-auto mb-10 max-w-[820px] text-center">
-            <h1 className="mb-4 text-3xl font-bold text-midnight_text dark:text-white md:text-5xl">
-              BookMyWorker Blog & Workforce Insights
-            </h1>
-            <p className="text-base leading-8 text-muted dark:text-white/70 md:text-lg">
-              Stay updated with BookMyWorker blogs covering workforce hiring,
-              labour market insights, employer guidance, and practical tips for
-              finding skilled, semi-skilled, and unskilled workers across India.
+  return (
+    <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
+      <div className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-4">
+        <div className="mx-auto mb-10 max-w-[820px] text-center">
+          <h1 className="mb-4 text-3xl font-bold text-midnight_text dark:text-white md:text-5xl">
+            BookMyWorker Blog & Workforce Insights
+          </h1>
+          <p className="text-base leading-8 text-muted dark:text-white/70 md:text-lg">
+            Stay updated with BookMyWorker blogs covering workforce hiring,
+            labour market trends, employer guidance, and practical tips for
+            finding skilled, semi-skilled, and unskilled workers across India.
+          </p>
+        </div>
+
+        {blogs.length === 0 ? (
+          <div className="py-16 text-center">
+            <p className="text-lg text-muted dark:text-white/60">
+              No blogs found.
             </p>
           </div>
-
-          {blogs.length === 0 ? (
-            <div className="py-16 text-center">
-              <p className="text-lg text-muted dark:text-white/60">
-                No blogs found.
-              </p>
-            </div>
-          ) : (
+        ) : (
+          <>
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
               {blogs.map((blog, i) => (
                 <div
@@ -104,10 +112,54 @@ const BlogPage = async () => {
                 </div>
               ))}
             </div>
-          )}
-        </div>
-      </section>
-    </>
+
+            {totalPages > 1 && (
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href={currentPage > 1 ? `/blog?page=${currentPage - 1}` : "#"}
+                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                    currentPage > 1
+                      ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                      : "pointer-events-none cursor-not-allowed border-gray-200 text-gray-400"
+                  }`}
+                >
+                  Previous
+                </Link>
+
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                  (page) => (
+                    <Link
+                      key={page}
+                      href={`/blog?page=${page}`}
+                      className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                        currentPage === page
+                          ? "bg-primary text-white"
+                          : "border border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                      }`}
+                    >
+                      {page}
+                    </Link>
+                  )
+                )}
+
+                <Link
+                  href={
+                    currentPage < totalPages ? `/blog?page=${currentPage + 1}` : "#"
+                  }
+                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                    currentPage < totalPages
+                      ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                      : "pointer-events-none cursor-not-allowed border-gray-200 text-gray-400"
+                  }`}
+                >
+                  Next
+                </Link>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
   );
 };
 

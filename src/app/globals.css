@@ -122,3 +122,11 @@ body {
 .slick-dots {
   bottom: -50px !important;
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}

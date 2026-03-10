@@ -1,6 +1,11 @@
 import React from "react";
+import Link from "next/link";
 import BlogCard from "@/components/SharedComponent/Blog/blogCard";
-import { getAllBlogs, type BlogItem } from "@/lib/blog";
+import {
+  getAllBlogs,
+  type BlogItem,
+  type BlogPagination,
+} from "@/lib/blog";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -50,29 +55,35 @@ export const metadata: Metadata = {
   },
 };
 
-const BlogPage = async () => {
+type BlogPageProps = {
+  searchParams?: Promise<{
+    page?: string;
+  }>;
+};
+
+const BLOGS_PER_PAGE = 6;
+
+const BlogPage = async ({ searchParams }: BlogPageProps) => {
+  const params = searchParams ? await searchParams : {};
+  const currentPage = Math.max(Number(params?.page || 1), 1);
+
   let blogs: BlogItem[] = [];
+  let pagination: BlogPagination | undefined;
 
   try {
-    blogs = await getAllBlogs();
+    const response = await getAllBlogs(currentPage, BLOGS_PER_PAGE);
+    blogs = response.blogs;
+    pagination = response.pagination;
   } catch (error) {
     blogs = [];
+    pagination = undefined;
   }
 
-  return (
-    <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
-      <div className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-4">
-        <div className="mx-auto mb-10 max-w-[820px] text-center">
-          <h1 className="mb-4 text-3xl font-bold text-midnight_text dark:text-white md:text-5xl">
-            BookMyWorker Blog & Workforce Insights
-          </h1>
-          <p className="text-base leading-8 text-muted dark:text-white/70 md:text-lg">
-            Stay updated with BookMyWorker blogs covering workforce hiring,
-            labour market trends, employer guidance, and practical tips for
-            finding skilled, semi-skilled, and unskilled workers across India.
-          </p>
-        </div>
+  const totalPages = pagination?.totalPages || 1;
 
+  return (
+    <section className="flex flex-wrap justify-center py-1 lg:py-1 dark:bg-dark">
+      <div className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-1">
         {blogs.length === 0 ? (
           <div className="py-16 text-center">
             <p className="text-lg text-muted dark:text-white/60">
@@ -80,19 +91,65 @@ const BlogPage = async () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
-            {blogs.map((blog, i) => (
-              <div
-                key={blog._id || i}
-                className="w-full"
-                data-aos="fade-up"
-                data-aos-delay="200"
-                data-aos-duration="1000"
-              >
-                <BlogCard blog={blog} />
+          <>
+            <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
+              {blogs.map((blog, i) => (
+                <div
+                  key={blog._id || i}
+                  className="w-full"
+                  data-aos="fade-up"
+                  data-aos-delay="200"
+                  data-aos-duration="1000"
+                >
+                  <BlogCard blog={blog} />
+                </div>
+              ))}
+            </div>
+
+            {totalPages > 1 && (
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href={currentPage > 1 ? `/blog?page=${currentPage - 1}` : "#"}
+                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                    currentPage > 1
+                      ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                      : "pointer-events-none cursor-not-allowed border-gray-200 text-gray-400"
+                  }`}
+                >
+                  Previous
+                </Link>
+
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                  (page) => (
+                    <Link
+                      key={page}
+                      href={`/blog?page=${page}`}
+                      className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                        currentPage === page
+                          ? "bg-primary text-white"
+                          : "border border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                      }`}
+                    >
+                      {page}
+                    </Link>
+                  )
+                )}
+
+                <Link
+                  href={
+                    currentPage < totalPages ? `/blog?page=${currentPage + 1}` : "#"
+                  }
+                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                    currentPage < totalPages
+                      ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                      : "pointer-events-none cursor-not-allowed border-gray-200 text-gray-400"
+                  }`}
+                >
+                  Next
+                </Link>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </section>

@@ -1,5 +1,3 @@
-// src/lib/Blog.ts
-
 export type BlogItem = {
   _id: string;
   slug: string;
@@ -11,11 +9,22 @@ export type BlogItem = {
   createdAt: string;
 };
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL?.trim() || "http://localhost:5000";
+export type BlogPagination = {
+  totalBlogs: number;
+  currentPage: number;
+  perPage: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+};
 
-const FILE_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL?.trim() || "http://localhost:5000";
+export type GetAllBlogsResponse = {
+  blogs: BlogItem[];
+  pagination?: BlogPagination;
+};
+
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000";
 
 function normalizeBaseUrl(url: string) {
   return url.endsWith("/") ? url.slice(0, -1) : url;
@@ -27,10 +36,17 @@ function buildUrl(baseUrl: string, path: string) {
   return new URL(safePath, safeBase).toString();
 }
 
-export async function getAllBlogs(): Promise<BlogItem[]> {
-  const url = buildUrl(API_BASE_URL, "/api/v1/blogs/list-publish");
+export async function getAllBlogs(
+  page?: number,
+  limit?: number
+): Promise<GetAllBlogsResponse> {
+  const baseUrl = buildUrl(API_BASE_URL, "/api/v1/blogs/list-publish");
+  const url = new URL(baseUrl);
 
-  const res = await fetch(url, {
+  if (page) url.searchParams.set("page", String(page));
+  if (limit) url.searchParams.set("limit", String(limit));
+
+  const res = await fetch(url.toString(), {
     next: { revalidate: 60 },
   });
 
@@ -39,12 +55,16 @@ export async function getAllBlogs(): Promise<BlogItem[]> {
   }
 
   const data = await res.json();
-  return data?.blogs || [];
+
+  return {
+    blogs: data?.blogs || [],
+    pagination: data?.pagination,
+  };
 }
 
 export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
   if (!slug) return null;
-console.log("Fetching blog with slug:", slug);
+
   const url = buildUrl(
     API_BASE_URL,
     `/api/v1/blogs/${encodeURIComponent(slug)}`
@@ -70,4 +90,27 @@ export function getBlogImageUrl(photo?: string) {
   }
 
   return buildUrl("https://bookmyworker.s3.eu-north-1.amazonaws.com", photo);
+}
+
+export async function likeBlogById(id: string): Promise<{ likes: number }> {
+  if (!id) {
+    throw new Error("Blog id is required");
+  }
+
+  const url = buildUrl(API_BASE_URL, `/api/v1/blogs/like/${id}`);
+
+  const res = await fetch(url, {
+    method: "PUT",
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.message || "Failed to like blog");
+  }
+
+  return {
+    likes: data?.likes || 0,
+  };
 }
