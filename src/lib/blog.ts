@@ -69,5 +69,5 @@ export function getBlogImageUrl(photo?: string) {
     return photo;
   }
 
-  return buildUrl(FILE_BASE_URL, photo);
+  return buildUrl("https://bookmyworker.s3.eu-north-1.amazonaws.com", photo);
 }
