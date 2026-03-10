@@ -29,8 +29,9 @@ export type WorkersResponse = {
 };
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000";
-
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : "https://www.bookmyworkers.com";
 function normalizeBaseUrl(url: string) {
   return url.endsWith("/") ? url.slice(0, -1) : url;
 }
