@@ -252,104 +252,114 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Search form below card */}
-            <div className="w-full max-w-5xl rounded-[24px] border border-white/40 bg-white/92 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.20)] backdrop-blur-md sm:p-5 md:p-6">
-              <div className="mb-4 flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-[#2F2F2F] sm:text-2xl">
-                  Search skill & unskilled workers/agents
-                </h3>
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#4056C6] text-xs font-semibold text-[#4056C6]">
-                  i
-                </span>
-              </div>
+<div className="w-full max-w-5xl rounded-[24px] border border-white/40 bg-white/92 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.20)] backdrop-blur-md dark:border-white/10 dark:bg-[#0F172A]/90 sm:p-5 md:p-6">
+  <div className="mb-4 flex items-center gap-2">
+    <h3 className="text-lg font-semibold text-[#2F2F2F] dark:text-white sm:text-2xl">
+      Search skill & unskilled workers/agents
+    </h3>
+    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#4056C6] text-xs font-semibold text-[#4056C6] dark:border-[#7C8CFF] dark:text-[#A5B4FC]">
+      i
+    </span>
+  </div>
 
-              <form
-                onSubmit={handleCandidateSearch}
-                className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end"
-              >
-                <div className="md:col-span-5">
-                  <label className="mb-2 block text-sm font-medium text-[#3A3A3A]">
-                    Select Worker Category
-                  </label>
-                  <div className="relative">
-           <select
-  value={jobTitle}
-  onChange={(e) => setJobTitle(e.target.value)}
-  required
-  className="h-[52px] w-full appearance-none rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white"
->
-  <option value="">Select Worker Category</option>
-  {WorkerCategoryData.map((item) => (
-    <option key={item.slug} value={item.title}>
-      {item.title}
-    </option>
-  ))}
-</select>
-
-                    <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#4056C6]">
-                      ▼
-                    </span>
-                  </div>
-                </div>
-
-                <div className="md:col-span-5">
-                  <label className="mb-2 block text-sm font-medium text-[#3A3A3A]">
-                    Select city
-                  </label>
-
-                  <div className="relative">
-                    <input
-  type="text"
-  value={city}
-  onChange={(e) => setCity(e.target.value)}
-  placeholder="Search or type city"
-  required
-  className="h-[52px] w-full rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white"
-/>
-
-                    {/* Dropdown */}
-                    {city && (
-                      <div className="absolute z-40 mt-1 max-h-52 w-full overflow-auto rounded-lg border bg-white shadow-lg">
-                        {cityOptions
-                          .filter((item) =>
-                            item.toLowerCase().includes(city.toLowerCase()),
-                          )
-                          .map((item) => (
-                            <div
-                              key={item}
-                              onClick={() => setCity(item)}
-                              className="cursor-pointer px-4 py-2 text-sm hover:bg-[#F1F4FF]"
-                            >
-                              {item}
-                            </div>
-                          ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="md:col-span-2">
-                  
-                  <button
-  type="submit"
-  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#4056C6] px-4 text-white shadow-md transition hover:bg-[#3347b2] md:min-w-[64px]"
->
-  Search
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
+  <form
+    onSubmit={handleCandidateSearch}
+    className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end"
   >
-    <circle cx="11" cy="11" r="7" />
-    <path d="m20 20-3.5-3.5" />
-  </svg>
-</button>
-                </div>
-              </form>
-            </div>
+    <div className="md:col-span-5">
+      <label className="mb-2 block text-sm font-medium text-[#3A3A3A] dark:text-slate-200">
+        Select Worker Category
+      </label>
+
+      <div className="relative">
+        <select
+          value={jobTitle}
+          onChange={(e) => setJobTitle(e.target.value)}
+          required
+          className="h-[52px] w-full appearance-none rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-[#7C8CFF] dark:focus:bg-slate-950"
+        >
+          <option value="">Select Worker Category</option>
+          {WorkerCategoryData.map((item) => (
+            <option
+              key={item.slug}
+              value={item.title}
+              className="bg-white text-[#2F2F2F] dark:bg-slate-900 dark:text-white"
+            >
+              {item.title}
+            </option>
+          ))}
+        </select>
+
+        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#4056C6] dark:text-[#A5B4FC]">
+          ▼
+        </span>
+      </div>
+    </div>
+
+    <div className="md:col-span-5">
+      <label className="mb-2 block text-sm font-medium text-[#3A3A3A] dark:text-slate-200">
+        Select city
+      </label>
+
+      <div className="relative">
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Search or type city"
+          required
+          className="h-[52px] w-full rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] placeholder:text-slate-400 outline-none transition focus:border-[#4056C6] focus:bg-white dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-[#7C8CFF] dark:focus:bg-slate-950"
+        />
+
+        {city && (
+          <div className="absolute z-40 mt-2 max-h-52 w-full overflow-auto rounded-xl border border-[#D9DCE8] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.12)] dark:border-slate-700 dark:bg-slate-900 dark:shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
+            {cityOptions.filter((item) =>
+              item.toLowerCase().includes(city.toLowerCase())
+            ).length > 0 ? (
+              cityOptions
+                .filter((item) =>
+                  item.toLowerCase().includes(city.toLowerCase())
+                )
+                .map((item) => (
+                  <div
+                    key={item}
+                    onClick={() => setCity(item)}
+                    className="cursor-pointer px-4 py-2.5 text-sm text-[#2F2F2F] transition hover:bg-[#F1F4FF] dark:text-white dark:hover:bg-slate-800"
+                  >
+                    {item}
+                  </div>
+                ))
+            ) : (
+              <div className="px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400">
+                No city found
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div className="md:col-span-2">
+      <button
+        type="submit"
+        className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#4056C6] px-4 text-white shadow-md transition hover:bg-[#3347b2] dark:bg-[#5B6EF5] dark:hover:bg-[#4C5FE0] md:min-w-[64px]"
+      >
+        Search
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
+      </button>
+    </div>
+  </form>
+</div>
           </div>
         </div>
       </div>

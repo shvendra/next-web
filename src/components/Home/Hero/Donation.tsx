@@ -80,7 +80,7 @@ export const Donation = () => {
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-[22px]">
+        <div className="mb-[10px]">
           <input
             type="text"
             name="name"
@@ -92,7 +92,7 @@ export const Donation = () => {
           />
         </div>
 
-        <div className="mb-[22px]">
+        <div className="mb-[10px]">
           <input
             type="email"
             name="email"
@@ -104,7 +104,7 @@ export const Donation = () => {
           />
         </div>
 
-        <div className="mb-[22px]">
+        <div className="mb-[10px]">
           <input
             type="text"
             name="phone"
@@ -116,7 +116,7 @@ export const Donation = () => {
           />
         </div>
 
-        <div className="mb-[22px]">
+        <div className="mb-[10px]">
           <input
             type="text"
             name="subject"
@@ -128,7 +128,7 @@ export const Donation = () => {
           />
         </div>
 
-        <div className="mb-[22px]">
+        <div className="mb-[10px]">
           <textarea
             name="message"
             value={formData.message}
@@ -141,13 +141,13 @@ export const Donation = () => {
         </div>
 
         {success && (
-          <div className="mb-[22px] rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+          <div className="mb-[10px] rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
             {success}
           </div>
         )}
 
         {error && (
-          <div className="mb-[22px] rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="mb-[10px] rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
           </div>
         )}
