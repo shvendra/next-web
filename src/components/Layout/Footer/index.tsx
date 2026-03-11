@@ -56,6 +56,12 @@ const Footer: FC = () => {
       >
         +91 7389791873
       </Link>
+      <Link
+        href="tel:+917089788929"
+        className="text-sm text-midnight_text dark:text-white hover:text-primary"
+      >
+        +91 7089788929
+      </Link>
     </div>
 
     <div className="flex items-center gap-4">

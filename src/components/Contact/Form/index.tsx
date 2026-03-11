@@ -129,12 +129,21 @@ const ContactForm = () => {
                   <p className="mb-1 text-sm font-semibold text-midnight_text dark:text-white">
                     Phone Number
                   </p>
-                  <a
-                    href="tel:+917389791873"
-                    className="text-sm text-primary hover:underline"
-                  >
-                    +91 7389791873
-                  </a>
+                <div className="flex gap-4">
+  <a
+    href="tel:+917389791873"
+    className="text-sm text-primary hover:underline"
+  >
+    +91 7389791873
+  </a>
+
+  <a
+    href="tel:+917389791873"
+    className="text-sm text-primary hover:underline"
+  >
+    +91 7389791873
+  </a>
+</div>
                 </div>
 
                 <div className="rounded-2xl bg-slate-50 p-4 dark:bg-dark">

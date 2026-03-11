@@ -256,43 +256,62 @@ const Header: React.FC = () => {
           </div>
           <div className="flex items-center">
             <div className="flex gap-3 py-2 pr-6 border-r dark:border-dark_border">
-              <Image
-                src="/images/icons/icon-mail.svg"
-                alt="icon"
-                width={32}
-                height={32}
-              />
-              <div className="">
-                <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
-                  Email us at
-                </p>
-                <Link
-                  href="#"
-                  className="text-base font-semibold mb-0 hover:text-primary"
-                >
-                  business@bookmyworkers.com
-                </Link>
-              </div>
-            </div>
-            <div className="flex gap-3 py-2 pl-6">
-              <Image
-                src="/images/icons/icon-phone.svg"
-                alt="icon"
-                width={32}
-                height={32}
-              />
-              <div className="">
-                <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
-                  Call us now
-                </p>
-                <Link
-                  href="#"
-                  className="text-base font-semibold mb-0 hover:text-primary"
-                >
-                  +91 7389791873
-                </Link>
-              </div>
-            </div>
+  <Image
+    src="/images/icons/icon-mail.svg"
+    alt="icon"
+    width={32}
+    height={32}
+  />
+
+  <div>
+    <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
+      Email us at
+    </p>
+
+    <Link
+      href="mailto:business@bookmyworkers.com"
+      className="block text-base font-semibold hover:text-primary"
+    >
+      business@bookmyworkers.com
+    </Link>
+
+    <Link
+      href="mailto:support@bookmyworkers.com"
+      className="block text-base font-semibold hover:text-primary"
+    >
+      support@bookmyworkers.com
+    </Link>
+  </div>
+</div>
+
+<div className="flex gap-3 py-2 pl-6">
+  <Image
+    src="/images/icons/icon-phone.svg"
+    alt="icon"
+    width={32}
+    height={32}
+  />
+
+  <div>
+    <p className="text-sm font-normal text-muted dark:text-white/60 mb-0">
+      Call us now
+    </p>
+
+    <Link
+      href="tel:+917389791873"
+      className="block text-base font-semibold hover:text-primary"
+    >
+      +91 7389791873
+    </Link>
+
+    <Link
+      href="tel:+917089788929"
+      className="block text-base font-semibold hover:text-primary"
+    >
+      +91 7089788929
+    </Link>
+  </div>
+</div>
             <button
               onClick={() => info?.setIsDonationOpen(true)}
               className="text-error text-sm font-semibold border border-error py-4 px-7 rounded-md ml-8 hover:bg-error hover:text-white"

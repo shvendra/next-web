@@ -9,58 +9,141 @@ import {
   heroHeadlines,
   heroBgImages,
 } from "../../data/heroSlider";
-import { WorkerCategoryData, indianStates} from "@/app/api/data"
-
-
+import { WorkerCategoryData, indianStates } from "@/app/api/data";
 
 const cityOptions = [
   // Madhya Pradesh
-  "Bhopal","Indore","Jabalpur","Gwalior","Ujjain","Sagar","Satna","Rewa",
+  "Bhopal",
+  "Indore",
+  "Jabalpur",
+  "Gwalior",
+  "Ujjain",
+  "Sagar",
+  "Satna",
+  "Rewa",
 
   // Uttar Pradesh
-  "Lucknow","Kanpur","Varanasi","Prayagraj","Agra","Meerut","Ghaziabad","Noida",
-  "Bareilly","Aligarh","Moradabad","Gorakhpur",
+  "Lucknow",
+  "Kanpur",
+  "Varanasi",
+  "Prayagraj",
+  "Agra",
+  "Meerut",
+  "Ghaziabad",
+  "Noida",
+  "Bareilly",
+  "Aligarh",
+  "Moradabad",
+  "Gorakhpur",
 
   // Jharkhand
-  "Ranchi","Jamshedpur","Dhanbad","Bokaro","Hazaribagh",
+  "Ranchi",
+  "Jamshedpur",
+  "Dhanbad",
+  "Bokaro",
+  "Hazaribagh",
 
   // Maharashtra
-  "Mumbai","Pune","Nagpur","Nashik","Aurangabad","Solapur","Kolhapur","Amravati",
-  "Nanded","Akola",
+  "Mumbai",
+  "Pune",
+  "Nagpur",
+  "Nashik",
+  "Aurangabad",
+  "Solapur",
+  "Kolhapur",
+  "Amravati",
+  "Nanded",
+  "Akola",
 
   // Telangana
-  "Hyderabad","Warangal","Karimnagar","Nizamabad","Khammam",
+  "Hyderabad",
+  "Warangal",
+  "Karimnagar",
+  "Nizamabad",
+  "Khammam",
 
   // Gujarat
-  "Ahmedabad","Surat","Vadodara","Rajkot","Bhavnagar","Jamnagar","Junagadh",
+  "Ahmedabad",
+  "Surat",
+  "Vadodara",
+  "Rajkot",
+  "Bhavnagar",
+  "Jamnagar",
+  "Junagadh",
   "Gandhinagar",
 
   // Rajasthan
-  "Jaipur","Jodhpur","Udaipur","Kota","Ajmer","Bikaner","Alwar","Bharatpur",
+  "Jaipur",
+  "Jodhpur",
+  "Udaipur",
+  "Kota",
+  "Ajmer",
+  "Bikaner",
+  "Alwar",
+  "Bharatpur",
 
   // Delhi
-  "New Delhi","Dwarka","Rohini","Karol Bagh",
+  "New Delhi",
+  "Dwarka",
+  "Rohini",
+  "Karol Bagh",
 
   // Haryana
-  "Gurgaon","Faridabad","Panipat","Ambala","Hisar","Rohtak","Karnal",
+  "Gurgaon",
+  "Faridabad",
+  "Panipat",
+  "Ambala",
+  "Hisar",
+  "Rohtak",
+  "Karnal",
 
   // Punjab
-  "Ludhiana","Amritsar","Jalandhar","Patiala","Bathinda","Mohali",
+  "Ludhiana",
+  "Amritsar",
+  "Jalandhar",
+  "Patiala",
+  "Bathinda",
+  "Mohali",
 
   // Chhattisgarh
-  "Raipur","Bhilai","Durg","Bilaspur","Korba","Rajnandgaon",
+  "Raipur",
+  "Bhilai",
+  "Durg",
+  "Bilaspur",
+  "Korba",
+  "Rajnandgaon",
 
   // Andhra Pradesh
-  "Visakhapatnam","Vijayawada","Guntur","Tirupati","Kurnool","Nellore","Rajahmundry",
+  "Visakhapatnam",
+  "Vijayawada",
+  "Guntur",
+  "Tirupati",
+  "Kurnool",
+  "Nellore",
+  "Rajahmundry",
 
   // Karnataka
-  "Bengaluru","Mysuru","Hubli","Mangalore","Belgaum","Davangere","Ballari",
+  "Bengaluru",
+  "Mysuru",
+  "Hubli",
+  "Mangalore",
+  "Belgaum",
+  "Davangere",
+  "Ballari",
 
   // Goa
-  "Panaji","Margao","Vasco da Gama","Mapusa",
+  "Panaji",
+  "Margao",
+  "Vasco da Gama",
+  "Mapusa",
 
   // Uttarakhand
-  "Dehradun","Haridwar","Roorkee","Haldwani","Rishikesh","Kashipur"
+  "Dehradun",
+  "Haridwar",
+  "Roorkee",
+  "Haldwani",
+  "Rishikesh",
+  "Kashipur",
 ];
 
 const Hero = () => {
@@ -69,18 +152,26 @@ const Hero = () => {
   const [jobTitle, setJobTitle] = useState("");
   const [city, setCity] = useState("");
 
-const router = useRouter();
+  const router = useRouter();
 
-const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+  const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  if (!jobTitle) {
+    alert("Please select worker category");
+    return;
+  }
 
-  const query = new URLSearchParams();
+  if (!city) {
+    alert("Please enter city");
+    return;
+  }
+    const query = new URLSearchParams();
 
-  if (jobTitle) query.set("workerType", jobTitle);
-  if (city) query.set("city", city);
+    if (jobTitle) query.set("workerType", jobTitle);
+    if (city) query.set("city", city);
 
-  router.push(`/workers?${query.toString()}`);
-};
+    router.push(`/workers?${query.toString()}`);
+  };
 
   return (
     <section className="relative mt-20 min-h-[820px] overflow-hidden sm:mt-44 lg:mt-40 lg:min-h-[860px]">
@@ -132,12 +223,16 @@ const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
                 </div>
 
                 <div className="border-r border-border px-3 py-4 text-center">
-                  <p className="mb-1 text-xs text-muted">🧑‍🏭 Workers Available</p>
+                  <p className="mb-1 text-xs text-muted">
+                    🧑‍🏭 Workers Available
+                  </p>
                   <h4 className="text-xl font-bold text-secondary">4.5L+</h4>
                 </div>
 
                 <div className="px-3 py-4 text-center">
-                  <p className="mb-1 text-xs text-muted">🏢 Suppliers Network</p>
+                  <p className="mb-1 text-xs text-muted">
+                    🏢 Suppliers Network
+                  </p>
                   <h4 className="text-xl font-bold text-secondary">10K+</h4>
                 </div>
               </div>
@@ -147,7 +242,7 @@ const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
                   onClick={() =>
                     window.open(
                       "https://www.bookmyworkers.com/app/register",
-                      "_blank"
+                      "_blank",
                     )
                   }
                   className="rounded-md border bg-linear-to-r from-error to-warning px-7 py-4 text-sm font-semibold text-white"
@@ -177,18 +272,19 @@ const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
                     Select Worker Category
                   </label>
                   <div className="relative">
-                    <select
-                      value={jobTitle}
-                      onChange={(e) => setJobTitle(e.target.value)}
-                      className="h-[52px] w-full appearance-none rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white"
-                    >
-                      <option value="">All Work</option>
-                    {WorkerCategoryData.map((item) => (
-      <option key={item.slug} value={item.title}>
-        {item.title}
-      </option>
-    ))}
-                    </select>
+           <select
+  value={jobTitle}
+  onChange={(e) => setJobTitle(e.target.value)}
+  required
+  className="h-[52px] w-full appearance-none rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white"
+>
+  <option value="">Select Worker Category</option>
+  {WorkerCategoryData.map((item) => (
+    <option key={item.slug} value={item.title}>
+      {item.title}
+    </option>
+  ))}
+</select>
 
                     <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#4056C6]">
                       ▼
@@ -196,58 +292,61 @@ const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
                   </div>
                 </div>
 
-             <div className="md:col-span-5">
-  <label className="mb-2 block text-sm font-medium text-[#3A3A3A]">
-    Select city
-  </label>
+                <div className="md:col-span-5">
+                  <label className="mb-2 block text-sm font-medium text-[#3A3A3A]">
+                    Select city
+                  </label>
 
-  <div className="relative">
-    <input
-      type="text"
-      value={city}
-      onChange={(e) => setCity(e.target.value)}
-      placeholder="Search or type city"
-      className="h-[52px] w-full rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white"
-    />
+                  <div className="relative">
+                    <input
+  type="text"
+  value={city}
+  onChange={(e) => setCity(e.target.value)}
+  placeholder="Search or type city"
+  required
+  className="h-[52px] w-full rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white"
+/>
 
-    {/* Dropdown */}
-    {city && (
-      <div className="absolute z-40 mt-1 max-h-52 w-full overflow-auto rounded-lg border bg-white shadow-lg">
-        {cityOptions
-          .filter((item) =>
-            item.toLowerCase().includes(city.toLowerCase())
-          )
-          .map((item) => (
-            <div
-              key={item}
-              onClick={() => setCity(item)}
-              className="cursor-pointer px-4 py-2 text-sm hover:bg-[#F1F4FF]"
-            >
-              {item}
-            </div>
-          ))}
-      </div>
-    )}
-  </div>
-</div>
+                    {/* Dropdown */}
+                    {city && (
+                      <div className="absolute z-40 mt-1 max-h-52 w-full overflow-auto rounded-lg border bg-white shadow-lg">
+                        {cityOptions
+                          .filter((item) =>
+                            item.toLowerCase().includes(city.toLowerCase()),
+                          )
+                          .map((item) => (
+                            <div
+                              key={item}
+                              onClick={() => setCity(item)}
+                              className="cursor-pointer px-4 py-2 text-sm hover:bg-[#F1F4FF]"
+                            >
+                              {item}
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
 
                 <div className="md:col-span-2">
+                  
                   <button
-                    type="submit"
-                    className="flex h-[52px] w-full items-center justify-center rounded-xl bg-[#4056C6] px-4 text-white shadow-md transition hover:bg-[#3347b2] md:min-w-[64px]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-3.5-3.5" />
-                    </svg>
-                  </button>
+  type="submit"
+  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#4056C6] px-4 text-white shadow-md transition hover:bg-[#3347b2] md:min-w-[64px]"
+>
+  Search
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" />
+  </svg>
+</button>
                 </div>
               </form>
             </div>
