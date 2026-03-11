@@ -3,6 +3,7 @@ import Link from "next/link";
 import BlogCard from "@/components/SharedComponent/Blog/blogCard";
 import { getAllBlogs, type BlogItem, type BlogPagination } from "@/lib/blog";
 import { Metadata } from "next";
+import HeroSub from "@/components/SharedComponent/HeroSub";
 
 export const metadata: Metadata = {
   title: "Blogs | BookMyWorker Workforce Insights",
@@ -78,7 +79,9 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
   const totalPages = pagination?.totalPages || 1;
 
   return (
-    <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
+    <>
+          <HeroSub title="Blogs | BookMyWorker Workforce Insights" />
+            <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
       <div className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-4">
         <div className="mx-auto mb-10 max-w-[820px] text-center">
           <h1 className="mb-4 text-3xl font-bold text-midnight_text dark:text-white md:text-5xl">
@@ -160,6 +163,9 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
         )}
       </div>
     </section>
+
+    </>
+  
   );
 };
 
