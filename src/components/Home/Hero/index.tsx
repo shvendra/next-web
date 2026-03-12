@@ -266,35 +266,48 @@ const Hero = () => {
     onSubmit={handleCandidateSearch}
     className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end"
   >
-    <div className="md:col-span-5">
-      <label className="mb-2 block text-sm font-medium text-[#3A3A3A] dark:text-slate-200">
-        Select Worker Category
-      </label>
+<div className="md:col-span-5">
+  <label className="mb-2 block text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200">
+    Select Worker Category
+  </label>
 
-      <div className="relative">
-        <select
-          value={jobTitle}
-          onChange={(e) => setJobTitle(e.target.value)}
-          required
-          className="h-[52px] w-full appearance-none rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10 text-sm text-[#2F2F2F] outline-none transition focus:border-[#4056C6] focus:bg-white dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-[#7C8CFF] dark:focus:bg-slate-950"
-        >
-          <option value="">Select Worker Category</option>
-          {WorkerCategoryData.map((item) => (
-            <option
-              key={item.slug}
-              value={item.title}
-              className="bg-white text-[#2F2F2F] dark:bg-slate-900 dark:text-white"
-            >
-              {item.title}
-            </option>
-          ))}
-        </select>
+  <div className="relative">
+  <select
+  value={jobTitle}
+  onChange={(e) => setJobTitle(e.target.value)}
+  required
+  className="h-[56px] w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 pr-12 text-sm font-medium text-slate-700 shadow-sm outline-none transition-all duration-200 hover:border-indigo-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:hover:border-indigo-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-900/40"
+>
+      <option value="">Select Worker Category</option>
 
-        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#4056C6] dark:text-[#A5B4FC]">
-          ▼
-        </span>
-      </div>
-    </div>
+      {WorkerCategoryData.map((item) => (
+       <option
+  key={item.slug}
+  value={item.title}
+  className="bg-white text-black dark:bg-slate-900 dark:text-white"
+>
+  {item.title}
+</option>
+      ))}
+    </select>
+
+    {/* Dropdown Icon */}
+    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-indigo-500 dark:text-indigo-400">
+      <svg
+        className="h-5 w-5"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
 
     <div className="md:col-span-5">
       <label className="mb-2 block text-sm font-medium text-[#3A3A3A] dark:text-slate-200">

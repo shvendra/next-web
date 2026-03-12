@@ -22,18 +22,14 @@ export const headerData: HeaderItem[] = [
   //     { label: "Services details", href: "/events/event-1" },
   //   ],
   // },
-    {
-    label: "Blog",
-    href: "/blog",
-    // submenu: [
-    //   { label: "Blog list", href: "/blog" },
-    //   { label: "Blog details", href: "/blog/blog_1" },
-    // ],
-  },
+
   {
-    label: "Suppliers/SelfWorkers",
+    label: "Workers",
     href: "#",
     submenu: [
+      { label: "Supplier", href: "/supplier" },
+      { label: "Workers", href: "/workers" },
+      { label: "Refund Policy", href: "/refund" },
       { label: "Install Project Search App", href: "https://play.google.com/store/apps/details?id=com.app.myworker&pcampaignid=web_share" },
       // { label: "Find Work by Category", href: "/blog/blog_1" },
     ],
@@ -52,4 +48,12 @@ export const headerData: HeaderItem[] = [
     ],
   },
   { label: "Contact", href: "/contact" },
+      {
+    label: "Blog",
+    href: "/blog",
+    // submenu: [
+    //   { label: "Blog list", href: "/blog" },
+    //   { label: "Blog details", href: "/blog/blog_1" },
+    // ],
+  },
 ];

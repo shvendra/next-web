@@ -40,6 +40,13 @@ const Footer: FC = () => {
         <p className="text-sm text-muted dark:text-white/60">
           KHASARA NO 34/1/33, Karahiya, Rewa, Madhya Pradesh 486001, India
         </p>
+        <Link
+        href="#"
+        className="text-sm text-midnight_text dark:text-white hover:text-primary"
+      >
+         GSTIN: 23NBJPS3070R1ZQ
+      </Link>
+       
       </div>
     </div>
 

@@ -3044,14 +3044,14 @@ export const Reviews: {
     post: "Construction Contractor",
   },
   {
-    clientImg: "/images/testimonial/client-2.jpg",
+    clientImg: "/images/testimonial/client-1.jpg",
     clientName: "Anil Verma",
     review:
       "We regularly hire factory helpers and machine operators through this platform. The process is simple and we get workers faster compared to traditional hiring methods.",
     post: "Factory Owner",
   },
   {
-    clientImg: "/images/testimonial/client-1.jpg",
+    clientImg: "/images/testimonial/client-2.jpg",
     clientName: "Sunita Gupta",
     review:
       "Finding trustworthy domestic workers was always difficult. Through this platform we connected with verified suppliers and hired house help within a short time.",

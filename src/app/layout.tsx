@@ -12,13 +12,14 @@ import { DonationProvider } from "./context/donationContext";
 import SessionProviderComp from "@/components/nextauth/SessionProvider";
 import { AuthDialogProvider } from "./context/AuthDialogContext";
 import NextTopLoader from "nextjs-toploader";
+import CookieConsent from "@/components/CookieConsent";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#FF4D7E",
+  themeColor: "#1976d2",
 };
 
 export const metadata: Metadata = {
@@ -221,6 +222,7 @@ export default function RootLayout({
                 <Aoscompo>
                   <Header />
                   {children}
+                  <CookieConsent />
                   <Footer />
                 </Aoscompo>
                 <ScrollToTop />
