@@ -27,9 +27,9 @@ export const headerData: HeaderItem[] = [
     label: "Workers",
     href: "#",
     submenu: [
-      { label: "Supplier", href: "/supplier" },
-      { label: "Workers", href: "/workers" },
-      { label: "Refund Policy", href: "/refund" },
+      { label: "Supplier", href: "#" },
+      { label: "Workers", href: "#" },
+      { label: "Refund Policy", href: "#" },
       { label: "Install Project Search App", href: "https://play.google.com/store/apps/details?id=com.app.myworker&pcampaignid=web_share" },
       // { label: "Find Work by Category", href: "/blog/blog_1" },
     ],
