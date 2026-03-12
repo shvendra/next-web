@@ -71,6 +71,8 @@ const AboutUs: React.FC = () => {
     </p>
   </div>
 
+
+</div>
   {/* Features */}
   <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
     {features.map((item, index) => (
@@ -85,8 +87,6 @@ const AboutUs: React.FC = () => {
       </div>
     ))}
   </div>
-</div>
-
         </div>
       </div>
     </section>
