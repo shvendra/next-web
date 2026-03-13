@@ -53,7 +53,7 @@ const WorkerPage: React.FC = () => {
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           {/* Left Image */}
           <div className="relative overflow-hidden rounded-3xl shadow-xl">
-            <div className="relative h-[420px] w-full sm:h-[500px]">
+            <div className="relative  w-full sm:h-[500px]">
               <Image
                 src="/images/about/worker-page.jpg"
                 alt="BookMyWorker workers"
