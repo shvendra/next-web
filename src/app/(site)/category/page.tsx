@@ -4,32 +4,58 @@ import Volunteer from "@/components/SharedComponent/Volunteer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Worker Categories | BookMyWorker",
+  metadataBase: new URL("https://www.bookmyworkers.com"),
+
+  title:
+    "Worker Categories | Hire Skilled, Semi-Skilled & Unskilled Workers | BookMyWorker",
 
   description:
-    "Explore worker categories on BookMyWorker including skilled, semi-skilled, and unskilled workers for construction, warehouse, factory, agriculture, household, and other workforce needs across India.",
+    "Explore worker categories on BookMyWorker and hire skilled, semi-skilled, and unskilled workers across India. Find construction workers, electricians, plumbers, drivers, helpers, factory workers, warehouse staff, and many other workforce categories.",
 
   keywords: [
     "BookMyWorker",
     "worker categories",
+    "hire workers India",
+    "worker categories India",
     "skilled workers India",
+    "semi skilled workers India",
     "unskilled workers India",
-    "semi-skilled workers India",
-    "construction workers",
-    "warehouse workers",
-    "factory workers",
+    "construction workers India",
+    "factory workers India",
+    "warehouse workers India",
+    "helper workers India",
+    "electrician workers India",
+    "plumber workers India",
+    "driver workers India",
     "labour categories India",
+    "manpower categories",
+    "worker marketplace India",
     "find workers near me",
+    "hire labour India",
+    "labour hiring platform",
   ],
 
   alternates: {
     canonical: "https://www.bookmyworkers.com/worker-category",
   },
 
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
   openGraph: {
-    title: "Worker Categories | BookMyWorker",
+    title:
+      "Worker Categories | Hire Skilled, Semi-Skilled & Unskilled Workers | BookMyWorker",
     description:
-      "Browse skilled, semi-skilled, and unskilled worker categories on BookMyWorker across India.",
+      "Browse worker categories on BookMyWorker and hire skilled, semi-skilled, and unskilled workers across construction, factory, warehouse, household, and service industries.",
     url: "https://www.bookmyworkers.com/worker-category",
     siteName: "BookMyWorker",
     locale: "en_IN",
@@ -46,16 +72,14 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Worker Categories | BookMyWorker",
+    title:
+      "Worker Categories | Hire Skilled & Unskilled Workers | BookMyWorker",
     description:
-      "Explore worker categories and hire the right workforce through BookMyWorker.",
+      "Explore worker categories and hire electricians, plumbers, helpers, drivers, construction workers, and more through BookMyWorker.",
     images: ["https://www.bookmyworkers.com/images/seo/og-image.jpg"],
   },
 
-  robots: {
-    index: true,
-    follow: true,
-  },
+  category: "worker marketplace",
 };
 
 const Page = () => {

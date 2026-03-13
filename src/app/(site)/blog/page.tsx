@@ -6,26 +6,59 @@ import { Metadata } from "next";
 import HeroSub from "@/components/SharedComponent/HeroSub";
 
 export const metadata: Metadata = {
-  title: "Blogs | BookMyWorker Workforce Insights",
+  metadataBase: new URL("https://www.bookmyworkers.com"),
+
+  title:
+    "BookMyWorker Blog | Hiring Tips, Workforce Insights & Labour Market Updates",
+
   description:
-    "Read the latest blogs, hiring tips, labour market updates, and workforce insights from BookMyWorker across India.",
+    "Read the latest BookMyWorker blogs covering hiring tips, labour market trends, workforce insights, manpower planning, and employer guidance for hiring skilled, semi-skilled, and unskilled workers across India.",
+
   keywords: [
     "BookMyWorker blog",
+    "BookMyWorker blogs",
     "workforce blog India",
-    "hire workers India",
+    "workforce insights India",
+    "hiring tips India",
     "labour hiring tips",
-    "skilled workers India",
-    "unskilled workers India",
+    "labour market updates",
+    "manpower hiring tips",
+    "worker hiring guide",
     "employer hiring guide",
+    "construction labour hiring",
+    "skilled workers India",
+    "semi skilled workers India",
+    "unskilled workers India",
+    "hire workers India",
+    "labour hiring strategies",
+    "workforce planning India",
+    "industrial hiring insights",
     "BookMyWorker news",
+    "worker marketplace insights",
+    "manpower trends India",
   ],
+
   alternates: {
     canonical: "https://www.bookmyworkers.com/blog",
   },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
   openGraph: {
-    title: "Blogs | BookMyWorker Workforce Insights",
+    title:
+      "BookMyWorker Blog | Hiring Tips, Workforce Insights & Labour Market Trends",
     description:
-      "Explore BookMyWorker blogs for hiring tips, workforce insights, labour trends, and employer guidance across India.",
+      "Explore BookMyWorker blogs for hiring strategies, labour market trends, workforce insights, and employer guidance for hiring skilled and unskilled workers across India.",
     url: "https://www.bookmyworkers.com/blog",
     siteName: "BookMyWorker",
     locale: "en_IN",
@@ -35,21 +68,21 @@ export const metadata: Metadata = {
         url: "https://www.bookmyworkers.com/images/seo/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BookMyWorker Blog",
+        alt: "BookMyWorker Workforce Blog",
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "BookMyWorker Blogs",
+    title:
+      "BookMyWorker Blog | Workforce Insights & Worker Hiring Tips",
     description:
-      "Read BookMyWorker blogs on hiring workers, labour trends, and workforce insights.",
+      "Discover hiring tips, labour trends, manpower insights, and workforce guidance through the BookMyWorker blog.",
     images: ["https://www.bookmyworkers.com/images/seo/og-image.jpg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+
+  category: "blog",
 };
 
 type BlogPageProps = {

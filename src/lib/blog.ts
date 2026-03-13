@@ -7,6 +7,7 @@ export type BlogItem = {
   photo?: string;
   likes?: number;
   createdAt: string;
+    updatedAt?: string;
 };
 
 export type BlogPagination = {

@@ -3,7 +3,7 @@
 import { WorkerCategoryData } from "@/app/api/data"
 import Image from "next/image"
 import Slider from "react-slick"
-
+import Link from "next/link";
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
@@ -80,11 +80,14 @@ const WorkerCategories = () => {
                     </p>
 
                     {/* Button */}
-                    <div className="mt-6">
-                      <button className="bg-primary text-white px-5 py-2 rounded-lg text-sm hover:bg-secondary transition">
-                        Hire Workers
-                      </button>
-                    </div>
+                <div className="mt-6">
+  <Link
+    href="https://www.bookmyworkers.com/app/register"
+    className="bg-primary text-white px-5 py-2 rounded-lg text-sm hover:bg-secondary transition inline-block"
+  >
+   Hire Workers →
+  </Link>
+</div>
 
                   </div>
 

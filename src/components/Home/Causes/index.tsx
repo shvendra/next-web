@@ -88,7 +88,7 @@ const WorkerCategories = () => {
     rel="noopener noreferrer"
   >
     <button className="bg-primary text-white px-5 py-2 rounded-lg text-sm hover:bg-secondary transition">
-      Hire Workers
+      Hire Workers →
     </button>
   </Link>
 </div>

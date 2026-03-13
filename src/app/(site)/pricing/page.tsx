@@ -5,31 +5,54 @@ import UrgentWorker from "@/components/Home/UrgentDonation";
 import PricingPlan from "@/components/pricing/PricingPlan";
 
 export const metadata: Metadata = {
-  title: "Pricing Plans | BookMyWorker Workforce Access",
+  metadataBase: new URL("https://www.bookmyworkers.com"),
+
+  title:
+    "Contact BookMyWorker | Workforce Hiring Support & Business Enquiries",
 
   description:
-    "Explore BookMyWorker pricing plans starting from ₹99/month. Get access to 5 lakh+ skilled, semi-skilled, and unskilled workers across India for employers, contractors, and companies.",
+    "Contact BookMyWorker for workforce hiring assistance, manpower supply enquiries, worker supplier partnerships, and employer support. Get help hiring skilled, semi-skilled, and unskilled workers across India.",
 
   keywords: [
-    "BookMyWorker pricing",
-    "worker hiring subscription",
-    "hire workers India pricing",
-    "labour hiring platform cost",
-    "BookMyWorker subscription",
-    "hire skilled workers India",
-    "manpower hiring platform",
-    "workforce hiring plans",
+    "BookMyWorker contact",
+    "contact BookMyWorker",
+    "BookMyWorker support",
+    "hire workers support India",
+    "workforce hiring support",
+    "manpower enquiry",
+    "labour hiring support",
+    "worker supplier contact",
+    "manpower supplier partnership",
+    "business enquiry BookMyWorker",
+    "employer hiring support",
+    "contractor hiring enquiry",
+    "labour supply enquiry",
+    "worker marketplace support",
+    "contact manpower platform India",
   ],
 
   alternates: {
-    canonical: "https://www.bookmyworkers.com/pricing",
+    canonical: "https://www.bookmyworkers.com/contact",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
   openGraph: {
-    title: "Pricing Plans | BookMyWorker Workforce Access",
+    title:
+      "Contact BookMyWorker | Workforce Hiring Support & Business Enquiries",
     description:
-      "Get affordable BookMyWorker subscription plans to access skilled, semi-skilled, and unskilled workers across India.",
-    url: "https://www.bookmyworkers.com/pricing",
+      "Get in touch with BookMyWorker for worker hiring support, manpower supply partnerships, and workforce solutions across India.",
+    url: "https://www.bookmyworkers.com/contact",
     siteName: "BookMyWorker",
     locale: "en_IN",
     type: "website",
@@ -38,23 +61,20 @@ export const metadata: Metadata = {
         url: "https://www.bookmyworkers.com/images/seo/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BookMyWorker Pricing Plans",
+        alt: "Contact BookMyWorker Workforce Platform",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "BookMyWorker Pricing Plans",
+    title: "Contact BookMyWorker Workforce Platform",
     description:
-      "Affordable workforce hiring plans starting from ₹99/month with access to thousands of workers across India.",
+      "Reach BookMyWorker for hiring support, workforce enquiries, and supplier partnerships.",
     images: ["https://www.bookmyworkers.com/images/seo/og-image.jpg"],
   },
 
-  robots: {
-    index: true,
-    follow: true,
-  },
+  category: "contact",
 };
 
 const page = () => {

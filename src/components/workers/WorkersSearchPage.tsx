@@ -236,23 +236,48 @@ export default function WorkersSearchPage({
     }
   };
 
-  useEffect(() => {
-    fetchWorkers(true, 1);
-  }, []);
+useEffect(() => {
+  fetchWorkers(true, initialPage, {
+    workerType: initialWorkerType,
+    stateValue: initialState,
+    city: initialCity,
+    gender: "",
+    workerGroup: "",
+    minAge: "",
+    maxAge: "",
+  });
+
+  setAppliedFilters({
+    workerType: initialWorkerType,
+    stateValue: initialState,
+    city: initialCity,
+    gender: "",
+    workerGroup: "",
+    minAge: "",
+    maxAge: "",
+  });
+
+  setPage(initialPage);
+}, [initialWorkerType, initialState, initialCity, initialPage]);
 
   const applyFilters = async () => {
     const query = new URLSearchParams();
 
-    if (workerType) query.set("workerType", workerType);
-    if (stateValue) query.set("state", stateValue);
-    if (city) query.set("city", city);
+if (workerType) query.set("workerType", workerType);
+if (stateValue) query.set("state", stateValue);
+if (city) query.set("city", city);
+if (gender) query.set("gender", gender);
+if (workerGroup) query.set("workerGroup", workerGroup);
+if (minAge) query.set("minAge", minAge);
+if (maxAge) query.set("maxAge", maxAge);
+query.set("page", "1");
 
     setLoading(true);
     setWorkers([]);
     setPage(1);
 
-    router.push(`/workers?${query.toString()}`);
-
+const queryString = query.toString();
+router.push(queryString ? `/workers?${queryString}` : "/workers");
     setAppliedFilters({
       workerType,
       stateValue,

@@ -1,13 +1,7 @@
-import type { MetadataRoute } from "next";
-import { getAllBlogs } from "@/lib/blog";
-
-const BASE_URL = "https://www.bookmyworkers.com";
-
-/** Worker skill types */
-const workerTypes = ["skilled", "semi-skilled", "unskilled"];
+export const workerTypes = ["skilled", "semi-skilled", "unskilled"];
 
 /** 50 worker categories */
-const workerCategories = [
+export const workerCategories = [
   "plumber",
   "electrician",
   "painter",
@@ -61,7 +55,7 @@ const workerCategories = [
 ];
 
 /** 300+ Indian cities */
-const cities = [
+export const cities = [
   "delhi",
   "mumbai",
   "bangalore",
@@ -570,114 +564,21 @@ const cities = [
   "paradip",
 ];
 
-/** Optional: dedupe in case of repeated values */
-const uniqueCities = [...new Set(cities)];
-const uniqueWorkerCategories = [...new Set(workerCategories)];
+export function isWorkerType(value: string) {
+  return workerTypes.includes(value.toLowerCase());
+}
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+export function isWorkerCategory(value: string) {
+  return workerCategories.includes(value.toLowerCase());
+}
 
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: `${BASE_URL}`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/service`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/category`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/privacy`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/terms`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/refund`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/blog`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-  ];
+export function isCity(value: string) {
+  return cities.includes(value.toLowerCase());
+}
 
-  const workerTypePages: MetadataRoute.Sitemap = workerTypes.flatMap((type) =>
-    uniqueWorkerCategories.map((category) => ({
-      url: `${BASE_URL}/workers/${type}/${category}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    }))
-  );
-
-  const cityPages: MetadataRoute.Sitemap = uniqueCities.flatMap((city) =>
-    uniqueWorkerCategories.map((category) => ({
-      url: `${BASE_URL}/workers/${city}/${category}`,
-      lastModified: now,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }))
-  );
-
-  let blogPages: MetadataRoute.Sitemap = [];
-
-  try {
-    /**
-     * Fetch all blogs.
-     * Increase limit if needed.
-     * Better: create a dedicated API/backend method that returns all blog slugs.
-     */
-    const blogResponse = await getAllBlogs(1, 5000);
-
-    blogPages = (blogResponse?.blogs || [])
-      .filter((blog) => blog?.slug)
-      .map((blog) => ({
-        url: `${BASE_URL}/blog/${blog.slug}`,
-        lastModified: blog.updatedAt
-          ? new Date(blog.updatedAt)
-          : blog.createdAt
-          ? new Date(blog.createdAt)
-          : now,
-        changeFrequency: "weekly" as const,
-        priority: 0.8,
-      }));
-  } catch (error) {
-    console.error("Sitemap blog fetch failed:", error);
-    blogPages = [];
-  }
-
-  return [...staticPages, ...workerTypePages, ...cityPages, ...blogPages];
+export function formatLabel(value: string) {
+  return value
+    .split("-")
+    .map((item) => item.charAt(0).toUpperCase() + item.slice(1))
+    .join(" ");
 }
