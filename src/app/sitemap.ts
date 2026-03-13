@@ -590,6 +590,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+        {
+      url: `${BASE_URL}/workers`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+        {
+      url: `${BASE_URL}/pricing`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+            {
+      url: `${BASE_URL}/hire-workers`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+                {
+      url: `${BASE_URL}/workers/manpower-supplier`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+                    {
+      url: `${BASE_URL}/workers/labor-supplier`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+                        {
+      url: `${BASE_URL}/workers/labor-contractor`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     {
       url: `${BASE_URL}/service`,
       lastModified: now,
