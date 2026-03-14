@@ -181,7 +181,7 @@ const WorkerPage: React.FC = () => {
 
             <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
               <a
-                href="/app/register"
+                href="https://play.google.com/store/apps/details?id=com.app.myworker&pcampaignid=web_share"
                 className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-bold text-blue-700 transition hover:bg-slate-100"
               >
                 Register as Worker
