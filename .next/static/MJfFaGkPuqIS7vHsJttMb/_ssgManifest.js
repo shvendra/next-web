@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fhire-workers\u002F[segment1]\u002F[segment2]","\u002Fworkers\u002F[segment1]\u002F[segment2]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
