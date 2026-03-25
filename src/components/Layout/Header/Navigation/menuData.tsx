@@ -40,7 +40,7 @@ export const headerData: HeaderItem[] = [
       { label: "Start Hiring", href: "https://www.bookmyworkers.com/workers" },
       // { label: "Install Recruiter App", href: "/blog/blog_1" },
             { label: "Pricing Plans", href: "/pricing" },
-      { label: "Refund Policy", href: "/refund" },
+      // { label: "Refund Policy", href: "/refund" },
             // { label: "FAQ", href: "/efaq" },
 
 

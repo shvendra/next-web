@@ -381,8 +381,8 @@ router.push(queryString ? `/workers?${queryString}` : "/workers");
   }, [page, loading, loadingMore, hasMore, appliedFilters]);
 
   return (
-    <section className="py-40 bg-[#f6f8fc] bg-no-repeat bg-cover lg:mt-1 sm:mt-1 mt-1">
-      <div className="mx-auto max-w-7xl px-4">
+<section className="py-23 sm:py-16 md:py-24 lg:py-40 bg-[#f6f8fc] bg-no-repeat bg-cover mt-1">
+        <div className="mx-auto max-w-7xl px-4">
         <div className="mb-6 rounded-2xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -761,73 +761,86 @@ router.push(queryString ? `/workers?${queryString}` : "/workers");
                       className="max-h-[70vh] overflow-y-auto pr-2"
                     >
                       {workers.map((agent) => (
-                        <div
-                          key={agent._id}
-                          className="mb-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
-                        >
-                          <div className="flex flex-col gap-4 md:flex-row">
-                            <div className="flex min-w-[110px] flex-col items-center">
-                              <img
-                                src={
-                                  agent.profilePhoto
-                                    ? `https://bookmyworker.s3.eu-north-1.amazonaws.com/${agent.profilePhoto}`
-                                    : "/usericon.png"
-                                }
-                                alt={agent.name || "Agent Profile"}
-                                className="h-20 w-20 rounded-full object-cover ring-2 ring-indigo-500"
-                              />
-                              <p className="mt-2 text-xs text-slate-500">
-                                {agent.dob ? `${getAge(agent.dob)} yrs` : ""}
-                                {agent.gender ? ` • ${agent.gender}` : ""}
-                              </p>
-                            </div>
+  <div
+    key={agent._id}
+    className="mb-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+  >
+    <div className="flex flex-col gap-3 md:flex-row">
+      
+      {/* Image Section */}
+      <div className="flex items-center gap-3 md:min-w-[110px] md:flex-col md:items-center">
+        <img
+          src={
+            agent.profilePhoto
+              ? `https://bookmyworker.s3.eu-north-1.amazonaws.com/${agent.profilePhoto}`
+              : "/usericon.png"
+          }
+          alt={agent.name || "Agent Profile"}
+          className="h-16 w-16 md:h-20 md:w-20 rounded-full object-cover ring-2 ring-indigo-500"
+        />
 
-                            <div className="flex-1">
-                              <h3 className="text-lg font-bold text-slate-900">
-                                {formatName(agent.name)}
-                              </h3>
+        <div className="text-left md:text-center">
+          <p className="text-sm font-semibold text-slate-800 md:hidden">
+            {formatName(agent.name)}
+          </p>
 
-                              <p className="mt-1 text-sm text-slate-500">
-                                📍 {agent.district}, {agent.state}
-                              </p>
+          <p className="text-xs text-slate-500">
+            {agent.dob ? `${getAge(agent.dob)} yrs` : ""}
+            {agent.gender ? ` • ${agent.gender}` : ""}
+          </p>
+        </div>
+      </div>
 
-                              <div className="mt-3 flex flex-wrap gap-2">
-                                <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-                                  {agent.role === "Agent" ? "Agent Managed" : "Worker"}
-                                </span>
+      {/* Content Section */}
+      <div className="flex-1">
+        
+        {/* Desktop Name */}
+        <h3 className="hidden md:block text-lg font-bold text-slate-900">
+          {formatName(agent.name)}
+        </h3>
 
-                                <span className="rounded-full bg-gradient-to-r from-slate-100 to-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm">
-                                  {formatAreas(agent.areasOfWork) || "Any Work"}
-                                </span>
-                              </div>
+        <p className="mt-1 text-sm text-slate-500">
+          📍 {agent.district}, {agent.state}
+        </p>
 
-                              <div className="mt-4 flex flex-wrap gap-2">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    window.location.href =
-                                      "https://www.bookmyworkers.com/app/register";
-                                  }}
-                                  className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white"
-                                >
-                                  View Contact
-                                </button>
+        <div className="mt-2 flex flex-wrap gap-2">
+          <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+            {agent.role === "Agent" ? "Agent Managed" : "Worker"}
+          </span>
 
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    window.location.href =
-                                      "https://www.bookmyworkers.com/app/register";
-                                  }}
-                                  className="rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white"
-                                >
-                                  WhatsApp
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+          <span className="rounded-full bg-gradient-to-r from-slate-100 to-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm">
+            {formatAreas(agent.areasOfWork) || "Any Work"}
+          </span>
+        </div>
+
+        {/* Buttons */}
+        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href =
+                "https://www.bookmyworkers.com/app/register";
+            }}
+            className="w-full sm:w-auto rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white"
+          >
+            View Contact
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href =
+                "https://www.bookmyworkers.com/app/register";
+            }}
+            className="w-full sm:w-auto rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white"
+          >
+            WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+))}
 
                       {loadingMore && (
                         <div className="py-4 text-center">

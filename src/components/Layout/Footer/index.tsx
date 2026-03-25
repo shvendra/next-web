@@ -93,7 +93,7 @@ const Footer: FC = () => {
       Useful Links
     </h4>
     <ul className="pl-5">
-      {menuItemsFooter.slice(0, 5).map((item, index) => (
+      {menuItemsFooter.slice(0, 7).map((item, index) => (
         <li key={index} className="mb-1">
           <Link
             href={item.link}
