@@ -95,7 +95,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   {
     url: `${BASE_URL}/category`,
     lastModified: now,
-    changeFrequency: "weekly",
+    changeFrequency: "daily",
     priority: 0.8,
   },
 
@@ -103,49 +103,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   {
     url: `${BASE_URL}/about`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.7,
   },
   {
     url: `${BASE_URL}/pricing`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.7,
   },
   {
     url: `${BASE_URL}/hire-workers`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.8,
   },
   {
     url: `${BASE_URL}/workers/manpower-supplier`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.7,
   },
   {
     url: `${BASE_URL}/workers/labor-supplier`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.7,
   },
   {
     url: `${BASE_URL}/workers/labor-contractor`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.7,
   },
   {
     url: `${BASE_URL}/service`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.7,
   },
   {
     url: `${BASE_URL}/contact`,
     lastModified: now,
-    changeFrequency: "monthly",
+    changeFrequency: "daily",
     priority: 0.6,
   },
 
@@ -153,19 +153,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   {
     url: `${BASE_URL}/privacy`,
     lastModified: now,
-    changeFrequency: "yearly",
+    changeFrequency: "daily",
     priority: 0.3,
   },
   {
     url: `${BASE_URL}/terms`,
     lastModified: now,
-    changeFrequency: "yearly",
+    changeFrequency: "daily",
     priority: 0.3,
   },
   {
     url: `${BASE_URL}/refund`,
     lastModified: now,
-    changeFrequency: "yearly",
+    changeFrequency: "daily",
     priority: 0.3,
   },
 ];
@@ -174,7 +174,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     uniqueWorkerCategories.map((category) => ({
       url: `${BASE_URL}/workers/${type}/${category}`,
       lastModified: now,
-      changeFrequency: "weekly" as const,
+      changeFrequency: "daily" as const,
       priority: 0.8,
     }))
   );
@@ -183,7 +183,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     uniqueWorkerCategories.map((category) => ({
       url: `${BASE_URL}/workers/${city}/${category}`,
       lastModified: now,
-      changeFrequency: "weekly" as const,
+      changeFrequency: "daily" as const,
       priority: 0.7,
     }))
   );
@@ -207,7 +207,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           : blog.createdAt
           ? new Date(blog.createdAt)
           : now,
-        changeFrequency: "weekly" as const,
+        changeFrequency: "daily" as const,
         priority: 0.8,
       }));
   } catch (error) {
