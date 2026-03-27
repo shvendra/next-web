@@ -275,12 +275,7 @@ const Header: React.FC = () => {
       business@bookmyworkers.com
     </Link>
 
-    <Link
-      href="mailto:support@bookmyworkers.com"
-      className="block text-base font-semibold hover:text-primary"
-    >
-      support@bookmyworkers.com
-    </Link>
+    
   </div>
 </div>
 
@@ -297,12 +292,6 @@ const Header: React.FC = () => {
       Call us now
     </p>
 
-    <Link
-      href="tel:+917389791873"
-      className="block text-base font-semibold hover:text-primary"
-    >
-      +91 7389791873
-    </Link>
 
     <Link
       href="tel:+917089788929"
