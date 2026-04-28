@@ -2,6 +2,7 @@ export type BlogItem = {
   _id: string;
   slug: string;
   title: string;
+  link: string; // Changed from slug to link
   subtitle?: string;
   body?: string;
   photo?: string;
@@ -63,13 +64,16 @@ export async function getAllBlogs(
   };
 }
 
-export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
-  if (!slug) return null;
-
+// Rename to getBlogByLink for clarity, or keep name but use 'link' logic
+export async function getBlogBySlug(link: string): Promise<BlogItem | null> {
+  if (!link) return null;
+console.log("Fetching blog with link:", link);
+  // Ensure this matches your backend route which looks up by the link string
   const url = buildUrl(
     API_BASE_URL,
-    `/api/v1/blogs/${encodeURIComponent(slug)}`
+    `/api/v1/blogs/${encodeURIComponent(link)}`
   );
+    console.log(url);
 
   const res = await fetch(url, {
     next: { revalidate: 60 },
@@ -80,6 +84,7 @@ export async function getBlogBySlug(slug: string): Promise<BlogItem | null> {
   }
 
   const data = await res.json();
+  // Ensure the frontend uses 'link' instead of 'slug' from the response
   return data?.blog || null;
 }
 

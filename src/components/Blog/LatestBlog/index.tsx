@@ -37,7 +37,7 @@ export default async function LatestBlog() {
         <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
           {blogs.slice(0, 2).map((blog, i) => (
             <div
-              key={blog._id || i}
+              key={blog.link || i}
               className="w-full"
               data-aos="fade-up"
               data-aos-delay="200"

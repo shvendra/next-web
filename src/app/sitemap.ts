@@ -199,9 +199,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const blogResponse = await getAllBlogs(1, 5000);
 
     blogPages = (blogResponse?.blogs || [])
-      .filter((blog) => blog?.slug)
+      .filter((blog) => blog?.link)
       .map((blog) => ({
-        url: `${BASE_URL}/blog/${blog.slug}`,
+        url: `${BASE_URL}/blog/${blog.link}`,
         lastModified: blog.updatedAt
           ? new Date(blog.updatedAt)
           : blog.createdAt

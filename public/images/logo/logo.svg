@@ -1,39 +1,29 @@
-<svg width="230" height="68" viewBox="0 0 230 68" xmlns="http://www.w3.org/2000/svg" fill="none">
-
-  <!-- Icon -->
-  <g transform="translate(5,8)">
+<svg width="260" height="68" viewBox="0 0 260 68" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <g transform="translate(5, 10)">
     <rect x="0" y="0" width="48" height="48" rx="10" fill="#1976d2"/>
-
-    <text x="24" y="28"
-          text-anchor="middle"
-          font-size="25"
-          font-family="Arial, Helvetica, sans-serif"
-          fill="white"
-          font-weight="bold">B</text>
-
-    <text x="24" y="40"
-          text-anchor="middle"
-          font-size="13"
-          font-family="Arial, Helvetica, sans-serif"
-          fill="white"
-          font-weight="bold">MW</text>
+    
+    <image 
+      href="/logo.jpg" 
+      x="4" y="4" 
+      width="40" height="40" 
+      preserveAspectRatio="xMidYMid meet"
+    />
   </g>
 
-  <!-- Main Title -->
-  <text x="70" y="32"
-        font-size="22"
-        font-family="Arial, Helvetica, sans-serif"
-        fill="#1976d2"
-        font-weight="bold">
-    BookMyWorker
-  </text>
+  <g transform="translate(65, 0)">
+    <text x="0" y="32"
+          font-size="22"
+          font-family="Arial, Helvetica, sans-serif"
+          fill="#1976d2"
+          font-weight="bold">
+      BookMyWorker
+    </text>
 
-  <!-- Subtitle -->
-  <text x="70" y="50"
-        font-size="12"
-        font-family="Arial, Helvetica, sans-serif"
-        fill="#6b7280">
-    Trusted workforce marketplace
-  </text>
-
+    <text x="0" y="50"
+          font-size="12"
+          font-family="Arial, Helvetica, sans-serif"
+          fill="#6b7280">
+      Trusted workforce marketplace
+    </text>
+  </g>
 </svg>

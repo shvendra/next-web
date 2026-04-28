@@ -31,7 +31,7 @@ const Header: React.FC = () => {
   const signInRef = useRef<HTMLDivElement>(null);
   const signUpRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-
+const closeMenu = () => setNavbarOpen(false);
   const handleScroll = () => {
     setSticky(window.scrollY >= 80);
   };
@@ -226,27 +226,33 @@ const Header: React.FC = () => {
               </svg>
             </button>
           </div>
-          <nav className="flex flex-col items-start p-4">
-            {headerData.map((item, index) => (
-              <MobileHeaderLink key={index} item={item} />
-            ))}
-            <div className="mt-4 flex flex-col space-y-4 w-full">
-              <Link
-                href="https://www.bookmyworkers.com/app/login"
-                target="_blank"
-                className="bg-transparent border border-primary text-primary px-4 py-2 text-nowrap rounded-lg hover:bg-darkprimary hover:text-white"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="https://www.bookmyworkers.com/app/register"
-                target="_blank"
-                className="bg-primary text-white px-4 py-2 rounded-lg text-nowrap hover:bg-darkprimary"
-              >
-                Sign Up
-              </Link>
-            </div>
-          </nav>
+        <nav className="flex flex-col items-start p-4">
+  {headerData.map((item, index) => (
+    <MobileHeaderLink 
+       key={index} 
+       item={item} 
+       closeMenu={closeMenu} // Pass the function here
+    />
+  ))}
+  <div className="mt-4 flex flex-col space-y-4 w-full">
+    <Link
+      href="https://www.bookmyworkers.com/app/login"
+      target="_blank"
+      onClick={closeMenu} // Add here
+      className="..."
+    >
+      Sign In
+    </Link>
+    <Link
+      href="https://www.bookmyworkers.com/app/register"
+      target="_blank"
+      onClick={closeMenu} // Add here
+      className="..."
+    >
+      Sign Up
+    </Link>
+  </div>
+</nav>
         </div>
       </div>
       <div className="dark:bg-dark">
@@ -297,7 +303,7 @@ const Header: React.FC = () => {
       href="tel:+917089788929"
       className="block text-base font-semibold hover:text-primary"
     >
-      +91 7089788929
+      +917089788929
     </Link>
   </div>
 </div>
@@ -351,3 +357,4 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+ 

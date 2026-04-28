@@ -7,7 +7,7 @@ import BlogPage from "../detail/page";
 import BlogLikeButton from "@/components/SharedComponent/Blog/BlogLikeButton";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ link: string }>;
 };
 
 function stripHtml(html?: string) {
@@ -16,8 +16,8 @@ function stripHtml(html?: string) {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const blog = await getBlogBySlug(slug);
+  const { link } = await params;
+  const blog = await getBlogBySlug(link);
 
   if (!blog) {
     return {
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props) {
     "Read the latest workforce insights and hiring updates from BookMyWorker.";
 
   const imageUrl = getBlogImageUrl(blog.photo);
-  const canonicalUrl = `https://www.bookmyworkers.com/blog/${blog.slug}`;
+  const canonicalUrl = `https://www.bookmyworkers.com/blog/${blog.link}`;
 
   return {
     title: `${blog.title} | BookMyWorker Blog`,
@@ -86,8 +86,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function SingleBlogPage({ params }: Props) {
-  const { slug } = await params;
-  const blog = await getBlogBySlug(slug);
+  const { link } = await params;
+  const blog = await getBlogBySlug(link);
 
   if (!blog) {
     notFound();
@@ -115,7 +115,7 @@ export default async function SingleBlogPage({ params }: Props) {
         url: "https://www.bookmyworkers.com/images/logo.png",
       },
     },
-    mainEntityOfPage: `https://www.bookmyworkers.com/blog/${blog.slug}`,
+    mainEntityOfPage: `https://www.bookmyworkers.com/blog/${blog.link}`,
   };
 
   return (
@@ -185,7 +185,7 @@ export default async function SingleBlogPage({ params }: Props) {
 
           <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-black/10 pt-6 dark:border-white/10">
             <BlogLikeButton
-  blogId={blog._id}
+  blogId={blog.link}
   initialLikes={blog.likes || 0}
 />
 

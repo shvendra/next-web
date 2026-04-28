@@ -11,7 +11,7 @@ const BlogCard = ({ blog }: Props) => {
   return (
     <div className="w-full">
       <Link
-        href={`/blog/${blog._id}`}
+        href={`/blog/${blog.link}`}
         className="flex flex-col gap-5 md:flex-row md:items-start"
       >
         <div className="relative h-[180px] w-full overflow-hidden rounded-[10px] md:h-[180px] md:w-[235px] min-w-[235px]">

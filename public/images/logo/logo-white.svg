@@ -1,38 +1,29 @@
-<svg width="230" height="68" viewBox="0 0 230 68" xmlns="http://www.w3.org/2000/svg" fill="none">
+import Image from 'next/image';
 
-  <!-- Icon -->
-  <g transform="translate(5,5)">
-    <rect x="0" y="0" width="50" height="50" rx="8" fill="white"/>
-    <text x="25" y="30"
-          text-anchor="middle"
-          font-size="25"
-          font-family="Arial, Helvetica, sans-serif"
-          fill="black"
-          font-weight="bold">B</text>
+const Logo = () => {
+  return (
+    <Link href="/" className="flex items-center">
+      {/* 1. Original Logo (for Light Mode) */}
+      <Image
+        src="/images/logo/logo.png" // The blue logo
+        alt="BookMyWorker Logo"
+        width={160} // Keep existing dimensions
+        height={50}
+        quality={100}
+        priority
+        className="h-[50px] w-auto object-contain dark:hidden" // Hiddden in dark mode
+      />
 
-    <text x="25" y="42"
-          text-anchor="middle"
-          font-size="13"
-          font-family="Arial, Helvetica, sans-serif"
-          fill="black"
-          font-weight="bold">MW</text>
-  </g>
-
-  <!-- Main Text -->
-  <text x="65" y="32"
-        font-family="Arial, Helvetica, sans-serif"
-        font-size="20"
-        font-weight="700"
-        fill="white">
-        BookMyWorker
-  </text>
-
-  <!-- Tagline -->
-  <text x="65" y="50"
-        font-family="Arial, Helvetica, sans-serif"
-        font-size="12"
-        fill="white">
-        Trusted workforce marketplace
-  </text>
-
-</svg>
+      {/* 2. White Logo (for Dark Mode) */}
+      <Image
+        src="/images/logo/logo-white.png" // Save the generated image as logo-white.png
+        alt="BookMyWorker Logo"
+        width={160} // Keep same dimensions
+        height={50}
+        quality={100}
+        priority
+        className="h-[50px] w-auto object-contain hidden dark:block" // Hidden in light mode, shown in dark
+      />
+    </Link>
+  );
+};

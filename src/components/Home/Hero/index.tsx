@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import DonationFormContext from "@/app/context/donationContext";
 import { useRouter } from "next/navigation";
@@ -9,142 +9,9 @@ import {
   heroHeadlines,
   heroBgImages,
 } from "../../data/heroSlider";
-import { WorkerCategoryData, indianStates } from "@/app/api/data";
+import { WorkerCategoryData } from "@/app/api/data";
+import toast, { Toaster } from 'react-hot-toast';
 
-// const cityOptions = [
-//   // Madhya Pradesh
-//   "Bhopal",
-//   "Indore",
-//   "Jabalpur",
-//   "Gwalior",
-//   "Ujjain",
-//   "Sagar",
-//   "Satna",
-//   "Rewa",
-
-//   // Uttar Pradesh
-//   "Lucknow",
-//   "Kanpur",
-//   "Varanasi",
-//   "Prayagraj",
-//   "Agra",
-//   "Meerut",
-//   "Ghaziabad",
-//   "Noida",
-//   "Bareilly",
-//   "Aligarh",
-//   "Moradabad",
-//   "Gorakhpur",
-
-//   // Jharkhand
-//   "Ranchi",
-//   "Jamshedpur",
-//   "Dhanbad",
-//   "Bokaro",
-//   "Hazaribagh",
-
-//   // Maharashtra
-//   "Mumbai",
-//   "Pune",
-//   "Nagpur",
-//   "Nashik",
-//   "Aurangabad",
-//   "Solapur",
-//   "Kolhapur",
-//   "Amravati",
-//   "Nanded",
-//   "Akola",
-
-//   // Telangana
-//   "Hyderabad",
-//   "Warangal",
-//   "Karimnagar",
-//   "Nizamabad",
-//   "Khammam",
-
-//   // Gujarat
-//   "Ahmedabad",
-//   "Surat",
-//   "Vadodara",
-//   "Rajkot",
-//   "Bhavnagar",
-//   "Jamnagar",
-//   "Junagadh",
-//   "Gandhinagar",
-
-//   // Rajasthan
-//   "Jaipur",
-//   "Jodhpur",
-//   "Udaipur",
-//   "Kota",
-//   "Ajmer",
-//   "Bikaner",
-//   "Alwar",
-//   "Bharatpur",
-
-//   // Delhi
-//   "New Delhi",
-//   "Dwarka",
-//   "Rohini",
-//   "Karol Bagh",
-
-//   // Haryana
-//   "Gurgaon",
-//   "Faridabad",
-//   "Panipat",
-//   "Ambala",
-//   "Hisar",
-//   "Rohtak",
-//   "Karnal",
-
-//   // Punjab
-//   "Ludhiana",
-//   "Amritsar",
-//   "Jalandhar",
-//   "Patiala",
-//   "Bathinda",
-//   "Mohali",
-
-//   // Chhattisgarh
-//   "Raipur",
-//   "Bhilai",
-//   "Durg",
-//   "Bilaspur",
-//   "Korba",
-//   "Rajnandgaon",
-
-//   // Andhra Pradesh
-//   "Visakhapatnam",
-//   "Vijayawada",
-//   "Guntur",
-//   "Tirupati",
-//   "Kurnool",
-//   "Nellore",
-//   "Rajahmundry",
-
-//   // Karnataka
-//   "Bengaluru",
-//   "Mysuru",
-//   "Hubli",
-//   "Mangalore",
-//   "Belgaum",
-//   "Davangere",
-//   "Ballari",
-
-//   // Goa
-//   "Panaji",
-//   "Margao",
-//   "Vasco da Gama",
-//   "Mapusa",
-
-//   // Uttarakhand
-//   "Dehradun",
-//   "Haridwar",
-//   "Roorkee",
-//   "Haldwani",
-//   "Rishikesh",
-//   "Kashipur",
-// ];
 const cityOptions = [
   "delhi",
   "mumbai",
@@ -653,57 +520,83 @@ const cityOptions = [
   "bhadrak",
   "paradip",
 ];
+
 const Hero = () => {
-  const donationInfo = useContext(DonationFormContext);
-
-  const [jobTitle, setJobTitle] = useState("");
-const [city, setCity] = useState("");
-const [showCityDropdown, setShowCityDropdown] = useState(false);
   const router = useRouter();
+  const [jobTitle, setJobTitle] = useState("");
+  const [city, setCity] = useState("");
+  const [showCityDropdown, setShowCityDropdown] = useState(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+const [isSearching, setIsSearching] = useState(false);
+// 1. Properly type the Ref
+const searchRef = useRef<HTMLDivElement>(null);
 
-  const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  if (!jobTitle) {
-    alert("Please select worker category");
-    return;
-  }
-
-  if (!city) {
-    alert("Please enter city");
-    return;
-  }
-    const query = new URLSearchParams();
-
-    if (jobTitle) query.set("workerType", jobTitle);
-    if (city) query.set("city", city);
-
-    router.push(`/workers?${query.toString()}`);
+useEffect(() => {
+  // 2. Add 'MouseEvent' type to the event parameter
+  const handleClickOutside = (event: MouseEvent) => {
+    // 3. Cast event.target as a Node so .contains() works correctly
+    if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      setShowCategoryDropdown(false);
+      setShowCityDropdown(false);
+    }
   };
 
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
+
+// If this is in a .tsx file, specify the element type for better precision
+const handleCandidateSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  if (!jobTitle) {
+    toast.error("Category Required", { icon: '👷', id: 'cat-error' });
+    return;
+  }
+
+  if (!city || city.trim() === "") {
+    toast.error("Location Required", { icon: '📍', id: 'city-error' });
+    return;
+  }
+
+  toast.success(`Searching in ${city}...`, {
+    duration: 2000,
+    style: { borderRadius: '12px', background: '#1e293b', color: '#fff' },
+  });
+
+  setIsSearching(true);
+  
+  const query = new URLSearchParams();
+  query.set("workerType", jobTitle);
+  query.set("city", city);
+  
+  setTimeout(() => {
+    router.push(`/workers?${query.toString()}`);
+  }, 1000);
+};
+
   return (
-    <section className="relative mt-20 min-h-[820px] overflow-hidden sm:mt-44 lg:mt-40 lg:min-h-[860px]">
-      {/* Background Slider */}
+    <section className="relative mt-20 min-h-[820px] sm:mt-44 lg:mt-40 lg:min-h-[860px]">
+      {/* 1. ADD THIS HERE - This makes the toasts actually appear */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="absolute inset-0 z-0">
         <Slider {...heroSliderSettings}>
           {heroBgImages.map((img, index) => (
             <div key={index}>
-              <div
-                className="h-[820px] w-full bg-cover bg-center lg:h-[860px]"
-                style={{ backgroundImage: `url(${img})` }}
-              />
+              <div className="h-[820px] w-full bg-cover bg-center lg:h-[860px]" style={{ backgroundImage: `url(${img})` }} />
             </div>
           ))}
         </Slider>
       </div>
 
-      {/* Overlay */}
       <div className="absolute inset-0 z-10 bg-black/45" />
 
-      {/* Centered content */}
       <div className="relative z-20 flex min-h-[820px] items-center justify-center px-4 py-10 lg:min-h-[860px]">
         <div className="w-full max-w-6xl">
           <div className="flex flex-col items-center justify-center gap-6 lg:gap-8">
-            {/* Main card */}
+            
+             {/* Main card */}
             <div className="w-full max-w-2xl rounded-2xl bg-white/95 p-6 shadow-2xl backdrop-blur-sm sm:p-8 dark:bg-dark/90">
               <div className="mb-4 text-center">
                 <Slider {...heroSliderSettings}>
@@ -759,139 +652,140 @@ const [showCityDropdown, setShowCityDropdown] = useState(false);
               </div>
             </div>
 
-<div className="w-full max-w-5xl rounded-[24px] border border-white/40 bg-white/92 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.20)] backdrop-blur-md dark:border-white/10 dark:bg-[#0F172A]/90 sm:p-5 md:p-6">
-  <div className="mb-4 flex items-center gap-2">
-    <h3 className="text-lg font-semibold text-[#2F2F2F] dark:text-white sm:text-2xl">
-      Search skill & unskilled workers/agents
-    </h3>
-    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#4056C6] text-xs font-semibold text-[#4056C6] dark:border-[#7C8CFF] dark:text-[#A5B4FC]">
+            {/* Search Area */}
+            <div ref={searchRef} className="w-full max-w-5xl rounded-2xl border border-white/40 bg-white/95 p-6 shadow-2xl backdrop-blur-sm dark:border-white/10 dark:bg-dark/90 sm:p-8">
+<div className="mb-6 flex items-center gap-2">
+  <h3 className="text-xl font-bold text-midnight_text dark:text-white sm:text-2xl">
+    Search workers/Suppliers
+  </h3>
+  
+  {/* Tooltip Container */}
+  <div className="group relative flex items-center">
+    <span className="inline-flex h-6 w-6 cursor-help items-center justify-center rounded-full border border-secondary text-xs font-semibold text-secondary transition-colors hover:bg-secondary hover:text-white">
       i
     </span>
-  </div>
 
-  <form
-    onSubmit={handleCandidateSearch}
-    className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end"
-  >
-<div className="md:col-span-5">
-  <label className="mb-2 block text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200">
-    Select Worker Category
-  </label>
-
-  <div className="relative">
-  <select
-  value={jobTitle}
-  onChange={(e) => setJobTitle(e.target.value)}
-  required
-  className="h-[56px] w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 pr-12 text-sm font-medium text-slate-700 shadow-sm outline-none transition-all duration-200 hover:border-indigo-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:hover:border-indigo-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-900/40"
->
-      <option value="">Select Worker Category</option>
-
-      {WorkerCategoryData.map((item) => (
-       <option
-  key={item.slug}
-  value={item.title}
-  className="bg-white text-black dark:bg-slate-900 dark:text-white"
->
-  {item.title}
-</option>
-      ))}
-    </select>
-
-    {/* Dropdown Icon */}
-    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-indigo-500 dark:text-indigo-400">
-      <svg
-        className="h-5 w-5"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-          clipRule="evenodd"
-        />
-      </svg>
-    </span>
+    {/* Tooltip Card */}
+    <div className="invisible absolute bottom-full mb-3 flex w-64 flex-col items-center group-hover:visible group-hover:opacity-100 opacity-0 transition-all duration-300">
+      <div className="rounded-lg bg-midnight_text p-3 text-xs leading-relaxed text-white shadow-xl dark:bg-[#1E293B] border border-white/10">
+        <p className="font-semibold text-secondary mb-1">Quick Search Guide:</p>
+        Select a <span className="text-warning">worker category</span> and <span className="text-warning">city</span> to find skilled/unskilled workers or suppliers instantly. 
+        <br />
+        <span className="mt-1 block italic opacity-80">🇮🇳 You can search for workers anywhere in India.</span>
+      </div>
+      {/* Tooltip Arrow */}
+      <div className="h-2 w-2 rotate-45 bg-midnight_text dark:bg-[#1E293B]"></div>
+    </div>
   </div>
 </div>
 
-    <div className="md:col-span-5">
-      <label className="mb-2 block text-sm font-medium text-[#3A3A3A] dark:text-slate-200">
-        Select city
-      </label>
-
-      <div className="relative">
-      <input
-  type="text"
-  value={city}
-  onChange={(e) => {
-    setCity(e.target.value);
-    setShowCityDropdown(true);
-  }}
-  onFocus={() => setShowCityDropdown(true)}
-  placeholder="Search or type city"
-  required
-  className="h-[52px] w-full rounded-xl border border-[#D9DCE8] bg-[#F8F9FC] px-4 pr-10  text-[#2F2F2F] placeholder:text-slate-400 outline-none transition focus:border-[#4056C6] focus:bg-white dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-[#7C8CFF] dark:focus:bg-slate-950"
-/>
-
-{showCityDropdown && city && (
-  <div className="absolute z-40 mt-2 max-h-52 w-full overflow-auto rounded-xl border border-[#D9DCE8] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.12)] dark:border-slate-700 dark:bg-slate-900 dark:shadow-[0_12px_30px_rgba(0,0,0,0.45)]">
-            {cityOptions.filter((item) =>
-              item.toLowerCase().includes(city.toLowerCase())
-            ).length > 0 ? (
-              cityOptions
-                .filter((item) =>
-                  item.toLowerCase().includes(city.toLowerCase())
-                )
-                .map((item) => (
-                  <div
-                    key={item}
+              <form onSubmit={handleCandidateSearch} className="grid grid-cols-1 gap-4 md:grid-cols-12 md:items-end">
+                
+                {/* Category Selection */}
+                <div className="md:col-span-5 relative">
+                  <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted dark:text-white/60">Category</label>
+                  <div 
                     onClick={() => {
-  setCity(item);
-  setShowCityDropdown(false);
-}}
-                    className="cursor-pointer px-4 py-2.5 text-sm text-[#2F2F2F] transition hover:bg-[#F1F4FF] dark:text-white dark:hover:bg-slate-800"
+                      setShowCategoryDropdown(!showCategoryDropdown);
+                      setShowCityDropdown(false);
+                    }}
+                    className="flex h-[56px] w-full cursor-pointer items-center justify-between rounded-xl border border-border bg-white/50 px-4 text-sm font-medium text-midnight_text dark:border-dark_border dark:bg-white/5 dark:text-white"
                   >
-                    {item}
+                    <span className={!jobTitle ? "opacity-50" : ""}>{jobTitle || "Select Worker Category"}</span>
+                    <svg className={`h-5 w-5 text-secondary transition-transform ${showCategoryDropdown ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" /></svg>
                   </div>
-                ))
-            ) : (
-              <div className="px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400">
-                No city found
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
 
-    <div className="md:col-span-2">
-      <button
-        type="submit"
-        className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#4056C6] px-4 text-white shadow-md transition hover:bg-[#3347b2] dark:bg-[#5B6EF5] dark:hover:bg-[#4C5FE0] md:min-w-[64px]"
-      >
-        Search
+                  {showCategoryDropdown && (
+                    <div className="absolute left-0 right-0 z-[100] mt-2 max-h-60 overflow-y-auto rounded-xl border border-border bg-white shadow-2xl dark:border-dark_border dark:bg-[#0F172A]">
+                      {WorkerCategoryData.map((item) => (
+                        <div key={item.slug} onClick={() => { setJobTitle(item.title); setShowCategoryDropdown(false); }} className="cursor-pointer px-4 py-3 text-sm text-midnight_text hover:bg-secondary/10 dark:text-white dark:hover:bg-white/10">
+                          {item.title}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* City Selection */}
+                <div className="md:col-span-5 relative">
+                  <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-muted dark:text-white/60">City</label>
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => { setCity(e.target.value); setShowCityDropdown(true); }}
+                    onFocus={() => { setShowCityDropdown(true); setShowCategoryDropdown(false); }}
+                    placeholder="Search city"
+                    className="h-[56px] w-full rounded-xl border border-border bg-white/50 px-4 text-sm font-medium text-midnight_text dark:border-dark_border dark:bg-white/5 dark:text-white outline-none"
+                  />
+                  {showCityDropdown && city && (
+                    <div className="absolute left-0 right-0 z-[100] mt-2 max-h-60 overflow-y-auto rounded-xl border border-border bg-white shadow-2xl dark:border-dark_border dark:bg-[#0F172A]">
+                      {cityOptions.filter(item => item.toLowerCase().includes(city.toLowerCase())).map((item) => (
+                        <div key={item} onClick={() => { setCity(item); setShowCityDropdown(false); }} className="cursor-pointer px-4 py-3 text-sm text-midnight_text hover:bg-secondary/10 dark:text-white dark:hover:bg-white/10">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Button */}
+<div className="md:col-span-2">
+  <button
+    type="submit"
+    disabled={isSearching}
+    className={`flex h-[56px] w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-error to-warning px-4 text-sm font-bold text-white shadow-lg transition-all ${
+      isSearching ? "cursor-not-allowed opacity-90" : "active:scale-95 hover:scale-[1.02]"
+    }`}
+  >
+    {isSearching ? (
+      <>
+        {/* Animated Spinner */}
+        <svg
+          className="h-5 w-5 animate-spin text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <span>Searching...</span>
+      </>
+    ) : (
+      <>
+        <span>Search</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
-          viewBox="0 0 24 24"
           fill="none"
+          viewBox="0 0 24 24"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="2.5"
         >
           <circle cx="11" cy="11" r="7" />
           <path d="m20 20-3.5-3.5" />
         </svg>
-      </button>
-    </div>
-  </form>
+      </>
+    )}
+  </button>
 </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-
 export default Hero;

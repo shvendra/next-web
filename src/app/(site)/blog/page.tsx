@@ -84,14 +84,40 @@ export const metadata: Metadata = {
 
   category: "blog",
 };
-
 type BlogPageProps = {
   searchParams?: Promise<{
     page?: string;
   }>;
 };
 
-const BLOGS_PER_PAGE = 6;
+const BLOGS_PER_PAGE = 12;
+
+// 1. HELPER FUNCTION FOR SLIDING WINDOW PAGINATION
+const getVisiblePages = (current: number, total: number) => {
+  const delta = 2; 
+  const range = [];
+  const rangeWithDots: (number | string)[] = [];
+  let l: number | undefined;
+
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+      range.push(i);
+    }
+  }
+
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l !== 1) {
+        rangeWithDots.push('...');
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+  return rangeWithDots;
+};
 
 const BlogPage = async ({ searchParams }: BlogPageProps) => {
   const params = await searchParams;
@@ -113,92 +139,86 @@ const BlogPage = async ({ searchParams }: BlogPageProps) => {
 
   return (
     <>
-          <HeroSub title="Blogs | BookMyWorker Workforce Insights" />
-            <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
-      <div className="container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) px-4">
-        <div className="mx-auto mb-10 max-w-[820px] text-center">
-          <h1 className="mb-4 text-3xl font-bold text-midnight_text dark:text-white md:text-5xl">
-            BookMyWorker Blog & Workforce Insights
-          </h1>
-          <p className="text-base leading-8 text-muted dark:text-white/70 md:text-lg">
-            Stay updated with BookMyWorker blogs covering workforce hiring,
-            labour market trends, employer guidance, and practical tips for
-            finding skilled, semi-skilled, and unskilled workers across India.
-          </p>
-        </div>
-
-        {blogs.length === 0 ? (
-          <div className="py-16 text-center">
-            <p className="text-lg text-muted dark:text-white/60">
-              No blogs found.
+      <HeroSub title="Blogs | BookMyWorker Workforce Insights" />
+      <section className="flex flex-wrap justify-center py-16 lg:py-24 dark:bg-dark">
+        <div className="container mx-auto px-4 lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md)">
+          <div className="mx-auto mb-10 max-w-[820px] text-center">
+            <h1 className="mb-4 text-3xl font-bold text-midnight_text dark:text-white md:text-5xl">
+              BookMyWorker Blog & Workforce Insights
+            </h1>
+            <p className="text-base leading-8 text-muted dark:text-white/70 md:text-lg">
+              Stay updated with BookMyWorker blogs covering workforce hiring and market trends.
             </p>
           </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
-              {blogs.map((blog, i) => (
-                <div
-                  key={blog._id || i}
-                  className="w-full"
-                  data-aos="fade-up"
-                  data-aos-delay="200"
-                  data-aos-duration="1000"
-                >
-                  <BlogCard blog={blog} />
-                </div>
-              ))}
+
+          {blogs.length === 0 ? (
+            <div className="py-16 text-center">
+              <p className="text-lg text-muted dark:text-white/60">No blogs found.</p>
             </div>
-
-            {totalPages > 1 && (
-              <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
-                <Link
-                  href={currentPage > 1 ? `/blog?page=${currentPage - 1}` : "#"}
-                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
-                    currentPage > 1
-                      ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
-                      : "pointer-events-none cursor-not-allowed border-gray-200 text-gray-400"
-                  }`}
-                >
-                  Previous
-                </Link>
-
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                  (page) => (
-                    <Link
-                      key={page}
-                      href={`/blog?page=${page}`}
-                      className={`rounded-md px-4 py-2 text-sm font-medium transition ${
-                        currentPage === page
-                          ? "bg-primary text-white"
-                          : "border border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
-                      }`}
-                    >
-                      {page}
-                    </Link>
-                  )
-                )}
-
-                <Link
-                  href={
-                    currentPage < totalPages ? `/blog?page=${currentPage + 1}` : "#"
-                  }
-                  className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
-                    currentPage < totalPages
-                      ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
-                      : "pointer-events-none cursor-not-allowed border-gray-200 text-gray-400"
-                  }`}
-                >
-                  Next
-                </Link>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-7 md:grid-cols-2">
+                {blogs.map((blog, i) => (
+                  <div key={blog.link || i} className="w-full" data-aos="fade-up">
+                    <BlogCard blog={blog} />
+                  </div>
+                ))}
               </div>
-            )}
-          </>
-        )}
-      </div>
-    </section>
 
+              {/* 2. UPDATED PAGINATION UI */}
+              {totalPages > 1 && (
+                <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+                  <Link
+                    href={currentPage > 1 ? `/blog?page=${currentPage - 1}` : "#"}
+                    className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                      currentPage > 1
+                        ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                        : "pointer-events-none opacity-40 border-gray-200 text-gray-400"
+                    }`}
+                  >
+                    Previous
+                  </Link>
+
+                  {getVisiblePages(currentPage, totalPages).map((p, index) => {
+                    if (p === '...') {
+                      return (
+                        <span key={`dots-${index}`} className="px-2 text-midnight_text dark:text-white">
+                          ...
+                        </span>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={`page-${p}`}
+                        href={`/blog?page=${p}`}
+                        className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                          currentPage === p
+                            ? "bg-primary text-white"
+                            : "border border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                        }`}
+                      >
+                        {p}
+                      </Link>
+                    );
+                  })}
+
+                  <Link
+                    href={currentPage < totalPages ? `/blog?page=${currentPage + 1}` : "#"}
+                    className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
+                      currentPage < totalPages
+                        ? "border-gray-300 text-midnight_text hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
+                        : "pointer-events-none opacity-40 border-gray-200 text-gray-400"
+                    }`}
+                  >
+                    Next
+                  </Link>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </section>
     </>
-  
   );
 };
 
