@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllBlogs } from "@/lib/blog";
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 const BASE_URL = "https://www.bookmyworkers.com";
 
 /** Worker skill types */
