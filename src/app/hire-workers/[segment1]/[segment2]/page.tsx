@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 import {
   isCity,
   isWorkerCategory,
