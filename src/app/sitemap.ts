@@ -196,7 +196,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
      * Increase limit if needed.
      * Better: create a dedicated API/backend method that returns all blog slugs.
      */
-    const blogResponse = await getAllBlogs(1, 5000);
+    const blogResponse = await getAllBlogs(1, 10000);
 
     blogPages = (blogResponse?.blogs || [])
       .filter((blog) => blog?.link)
