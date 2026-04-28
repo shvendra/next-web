@@ -743,8 +743,11 @@ router.push(queryString ? `/workers?${queryString}` : "/workers");
                     </div>
                   ) : (
                     <p className="text-sm font-medium text-slate-700">
-                      {visibleWorkerCount.toLocaleString("en-IN")}+ workers available
-                    </p>
+  <span className="font-bold">
+    {visibleWorkerCount.toLocaleString("en-IN")}+
+  </span>{" "}
+  Workers available
+</p>
                   )}
                 </div>
 
@@ -788,6 +791,11 @@ router.push(queryString ? `/workers?${queryString}` : "/workers");
             {agent.dob ? `${getAge(agent.dob)} yrs` : ""}
             {agent.gender ? ` • ${agent.gender}` : ""}
           </p>
+          {agent.workExperience && (
+  <p className="text-xs text-slate-500">
+    {agent.workExperience} Yrs of experience
+  </p>
+)}
         </div>
       </div>
 
