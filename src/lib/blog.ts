@@ -48,8 +48,14 @@ export async function getAllBlogs(
   if (page) url.searchParams.set("page", String(page));
   if (limit) url.searchParams.set("limit", String(limit));
 
+  // Determine if we should bypass the cache (Next.js has a 2MB cache limit)
+  // Large limits (like 5000 for sitemaps) usually exceed this.
+  const isLargeRequest = limit && limit > 100;
+
   const res = await fetch(url.toString(), {
-    next: { revalidate: 60 },
+    // If it's a large request, use 'no-store' to avoid the 2MB cache error
+    cache: isLargeRequest ? 'no-store' : 'default',
+    next: isLargeRequest ? undefined : { revalidate: 60 },
   });
 
   if (!res.ok) {
