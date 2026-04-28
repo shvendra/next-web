@@ -26,7 +26,7 @@ export type GetAllBlogsResponse = {
 };
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "http://localhost:5000";
+  process.env.NEXTAUTH_URL?.trim() || "http://localhost:5000";
 
 function normalizeBaseUrl(url: string) {
   return url.endsWith("/") ? url.slice(0, -1) : url;
