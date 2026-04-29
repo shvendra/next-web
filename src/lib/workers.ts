@@ -6,7 +6,7 @@ export type WorkerItem = {
   district?: string;
   gender?: string;
   dob?: string | number;
-  workExperience?: number;
+  workExperience?: number | string;
   fixedSalary?: number;
   salaryFrom?: number;
   salaryTo?: number;

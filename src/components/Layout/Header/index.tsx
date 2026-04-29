@@ -193,67 +193,94 @@ const closeMenu = () => setNavbarOpen(false);
             </button>
           </div>
         </div>
-        {navbarOpen && (
-          <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-40" />
-        )}
-        <div
-          ref={mobileMenuRef}
-          className={`lg:hidden fixed top-0 right-0 h-full w-full bg-white dark:bg-dark shadow-lg transform transition-transform duration-300 max-w-xs ${navbarOpen ? "translate-x-0" : "translate-x-full"} z-50`}
-        >
-          <div className="flex items-center justify-between p-4">
-            <h2 className="text-lg font-bold text-midnight_text dark:text-white">
-              Menu
-            </h2>
-            <button
-              onClick={() => setNavbarOpen(false)}
-              aria-label="Close mobile menu"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="dark:text-white"
-              >
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-        <nav className="flex flex-col items-start p-4">
-  {headerData.map((item, index) => (
-    <MobileHeaderLink 
-       key={index} 
-       item={item} 
-       closeMenu={closeMenu} // Pass the function here
-    />
-  ))}
-  <div className="mt-4 flex flex-col space-y-4 w-full">
-    <Link
-      href="https://www.bookmyworkers.com/app/login"
-      target="_blank"
-      onClick={closeMenu} // Add here
-      className="..."
+   {navbarOpen && (
+  <div
+    onClick={closeMenu}
+    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300"
+  />
+)}
+
+<div
+  ref={mobileMenuRef}
+  className={`lg:hidden fixed top-0 right-0 h-screen w-full max-w-sm
+    bg-white dark:bg-slate-900
+    shadow-2xl border-l border-slate-200 dark:border-slate-800
+    transform transition-all duration-300 ease-in-out z-50
+    ${navbarOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}
+  `}
+>
+  {/* Header */}
+  <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
+    <div>
+      <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+        Menu
+      </h2>
+      <p className="text-sm text-slate-500 dark:text-slate-400">
+        Explore BookMyWorkers
+      </p>
+    </div>
+
+    <button
+      onClick={closeMenu}
+      aria-label="Close mobile menu"
+      className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition"
     >
-      Sign In
-    </Link>
-    <Link
-      href="https://www.bookmyworkers.com/app/register"
-      target="_blank"
-      onClick={closeMenu} // Add here
-      className="..."
-    >
-      Sign Up
-    </Link>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        className="text-slate-700 dark:text-white"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
   </div>
-</nav>
-        </div>
+
+  {/* Nav */}
+  <nav className="flex flex-col px-6 py-6 space-y-2 overflow-y-auto">
+    {headerData.map((item, index) => (
+      <div
+        key={index}
+        className="w-full rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+      >
+        <MobileHeaderLink item={item} closeMenu={closeMenu} />
+      </div>
+    ))}
+  </nav>
+
+  {/* Footer CTA */}
+  <div className="absolute bottom-0 left-0 w-full p-6 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+    <div className="flex flex-col gap-3">
+      <Link
+        href="https://www.bookmyworkers.com/app/login"
+        target="_blank"
+        onClick={closeMenu}
+        className="w-full text-center py-3 rounded-xl border border-slate-300 dark:border-slate-700
+        text-slate-800 dark:text-white font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+      >
+        Sign In
+      </Link>
+
+      <Link
+        href="https://www.bookmyworkers.com/app/register"
+        target="_blank"
+        onClick={closeMenu}
+        className="w-full text-center py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700
+        text-white font-semibold shadow-lg transition"
+      >
+        Sign Up
+      </Link>
+    </div>
+  </div>
+</div>
       </div>
       <div className="dark:bg-dark">
         <div className="px-4 container mx-auto lg:max-w-(--breakpoint-xl) md:max-w-(--breakpoint-md) sm:flex lg:justify-between justify-center py-5 hidden">

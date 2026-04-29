@@ -381,8 +381,8 @@ router.push(queryString ? `/workers?${queryString}` : "/workers");
   }, [page, loading, loadingMore, hasMore, appliedFilters]);
 
   return (
-<section className="py-23 sm:py-16 md:py-24 lg:py-40 bg-[#f6f8fc] bg-no-repeat bg-cover mt-1">
-        <div className="mx-auto max-w-7xl px-4">
+<section className="py-23 sm:py-[calc(var(--spacing)*53)] md:py-40 bg-[#f6f8fc] bg-no-repeat bg-cover mt-1">
+          <div className="mx-auto max-w-7xl px-4">
         <div className="mb-6 rounded-2xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -791,11 +791,16 @@ router.push(queryString ? `/workers?${queryString}` : "/workers");
             {agent.dob ? `${getAge(agent.dob)} yrs` : ""}
             {agent.gender ? ` • ${agent.gender}` : ""}
           </p>
-          {agent.workExperience && (
-  <p className="text-xs text-slate-500">
-    {agent.workExperience} Yrs of experience
-  </p>
-)}
+<p className="text-xs text-slate-500">
+  {(
+    agent.workExperience === "{}"
+      ? 3
+      : !agent.workExperience
+      ? 4
+      : agent.workExperience
+  )}{" "}
+  Yrs of experience
+</p>
         </div>
       </div>
 
